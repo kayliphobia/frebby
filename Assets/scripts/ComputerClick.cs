@@ -2,10 +2,11 @@ using UnityEngine;
 
 public class ComputerClick : MonoBehaviour
 {
-    public GameObject cameraMenuUI;
+    public CameraMenuManager cameraMenuManager;
 
     void OnMouseDown()
     {
-        cameraMenuUI.SetActive(true);
+        if (cameraMenuManager != null)
+            cameraMenuManager.OpenCamera();
     }
 }
