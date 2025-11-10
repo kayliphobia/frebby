@@ -17,6 +17,11 @@ public class ProductivitySystem : MonoBehaviour
     public float currentValue;
     public bool windowActive = false;
 
+    private GameManager gameManager;
+    public float baseDepletionRate = 1f;   // Night 1 baseline
+    public float dayMultiplier = 0.3f;     // +30% per additional day
+
+
     private string[] fakePhrases = {
         "Compiling report...", "Checking logs...", 
         "Processing data...", "Updating files...", 
@@ -25,12 +30,15 @@ public class ProductivitySystem : MonoBehaviour
 
     void Start()
     {
+        gameManager = FindFirstObjectByType<GameManager>();
+
         currentValue = maxValue;
         productivityBar.maxValue = maxValue;
         productivityBar.value = currentValue;
 
         InvokeRepeating(nameof(DepleteBar), tickRate, tickRate);
     }
+
 
     void Update()
     {
@@ -56,7 +64,10 @@ public class ProductivitySystem : MonoBehaviour
 
     void DepleteBar()
     {
-        currentValue -= depletionRate;
+        int day = gameManager != null ? gameManager.currentDay : 1;
+        float scaledDepletion = baseDepletionRate * (1f + (day - 1) * dayMultiplier);
+
+        currentValue -= scaledDepletion;
         currentValue = Mathf.Max(0, currentValue);
 
         if (windowActive && productivityBar != null)
@@ -65,7 +76,7 @@ public class ProductivitySystem : MonoBehaviour
         if (currentValue <= 0)
         {
             Debug.Log("Productivity dropped to 0!");
-            // TODO: trigger game over / puppet-like event
+            // TODO: trigger puppet-like failure
         }
     }
 
