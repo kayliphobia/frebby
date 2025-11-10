@@ -77,20 +77,21 @@ public class PlayerHidingSystem : MonoBehaviour
             // camera move
             cameraTransform.localPosition = Vector3.Lerp(startPos, endPos, t);
 
+
+            if (hideImage != null)
+                if (t <= transitionDuration)
+                {
+                    hideImage.color = new Color(baseColor.r, baseColor.g, baseColor.b, Mathf.Lerp(0f, 4f, t * 2f));
+                }
+                else
+                {
+                    hideImage.color = new Color(baseColor.r, baseColor.g, baseColor.b, Mathf.Lerp(2f, 0f, t - transitionDuration));
+                }
+                
             // fade vignette smoothly during transition
             if (vignetteImage != null)
                 vignetteImage.color = new Color(baseColor.r, baseColor.g, baseColor.b, Mathf.Lerp(startAlpha, endAlpha, t));
 
-            if (hideImage != null)
-                if (t <= transitionDuration / 2)
-                {
-                    hideImage.color = new Color(baseColor.r, baseColor.g, baseColor.b, Mathf.Lerp(0f, 1f, t*2f));
-                }
-                else
-                {
-                    hideImage.color = new Color(baseColor.r, baseColor.g, baseColor.b, Mathf.Lerp(1f, 0f, (t-transitionDuration)*2f));
-                }
-                
 
             yield return null;
         }

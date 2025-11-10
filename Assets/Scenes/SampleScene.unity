@@ -326,8 +326,8 @@ MonoBehaviour:
   cameraTransform: {fileID: 519420032}
   vignetteImage: {fileID: 1378448007}
   hideImage: {fileID: 1709626200}
-  cameraDownOffset: -12
-  transitionDuration: 0.4
+  cameraDownOffset: -13
+  transitionDuration: 0.2
   breathingSpeed: 4
   breathingIntensity: 0.15
 --- !u!1 &389439391
@@ -2350,7 +2350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 0}
+  m_Color: {r: 0.103773594, g: 0, b: 0, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -4375,12 +4375,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.365
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -4421,8 +4421,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1378448009}
   - {fileID: 1709626202}
+  - {fileID: 1378448009}
   - {fileID: 1720236010}
   - {fileID: 1834450639}
   - {fileID: 862942491}
