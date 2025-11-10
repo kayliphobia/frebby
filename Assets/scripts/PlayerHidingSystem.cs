@@ -22,6 +22,9 @@ public class PlayerHidingSystem : MonoBehaviour
     private Coroutine transitionRoutine;
     private Color baseColor;
 
+    public bool IsHiding() => isHiding;
+
+
     void Start()
     {
         if (cameraTransform == null)

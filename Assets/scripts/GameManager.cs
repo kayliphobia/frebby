@@ -17,12 +17,14 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI timeText;
     public TextMeshProUGUI dayText;
     public GameObject shiftCompleteUI;
+    public GameObject gameOverUI;         // optional UI overlay for death screen
 
     [Header("AI Difficulty")]
     public int[] animatronicDifficulty;   // difficulty per animatronic
     public int[] baseDifficultyPerDay;    // overall AI scaling per day
 
     private bool shiftActive = true;
+    private bool isGameOver = false;
 
     void Start()
     {
@@ -32,7 +34,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (!shiftActive) return;
+        if (!shiftActive || isGameOver) return;
 
         hourTimer += Time.deltaTime;
 
@@ -46,7 +48,6 @@ public class GameManager : MonoBehaviour
                 currentHour = endHour;
                 EndShift();
             }
-
             else
             {
                 UpdateUI();
@@ -68,8 +69,8 @@ public class GameManager : MonoBehaviour
     void EndShift()
     {
         shiftActive = false;
-        shiftCompleteUI.SetActive(true);
-        // Optionally pause AI or input here
+        if (shiftCompleteUI != null)
+            shiftCompleteUI.SetActive(true);
     }
 
     public void NextDay()
@@ -85,7 +86,12 @@ public class GameManager : MonoBehaviour
         currentHour = 9;
         hourTimer = 0f;
         shiftActive = true;
-        shiftCompleteUI.SetActive(false);
+        isGameOver = false;
+        if (shiftCompleteUI != null)
+            shiftCompleteUI.SetActive(false);
+        if (gameOverUI != null)
+            gameOverUI.SetActive(false);
+
         InitializeDay(currentDay);
     }
 
@@ -107,5 +113,49 @@ public class GameManager : MonoBehaviour
 
         if (dayText != null)
             dayText.text = $"DAY {currentDay}";
+    }
+
+    // --- NEW FUNCTIONS BELOW ---
+
+    /// <summary>
+    /// Returns the AI level for a given animatronic name.
+    /// Animatronic names correspond to index in animatronicDifficulty.
+    /// </summary>
+    public int GetAILevel(string animatronicName)
+    {
+        // Example naming convention: 0 = Steve, 1 = Marionette, etc.
+        animatronicName = animatronicName.ToLower();
+
+        int index = 0;
+        switch (animatronicName)
+        {
+            case "steve": index = 0; break;
+            case "marionette": index = 1; break;
+            // add more animatronics here
+            default: index = 0; break;
+        }
+
+        if (index >= 0 && index < animatronicDifficulty.Length)
+            return animatronicDifficulty[index];
+        else
+            return 0;
+    }
+
+    /// <summary>
+    /// Handles game over state (called by animatronic scripts).
+    /// </summary>
+    public void TriggerGameOver(string cause)
+    {
+        if (isGameOver) return;
+
+        isGameOver = true;
+        shiftActive = false;
+
+        Debug.Log($"GAME OVER — Cause: {cause}");
+
+        // Optional freeze and show game over UI
+        Time.timeScale = 0f;
+        if (gameOverUI != null)
+            gameOverUI.SetActive(true);
     }
 }
