@@ -38,6 +38,8 @@ public class AI : MonoBehaviour
 
     protected Dictionary<State, System.Action> stateMapping;
 
+    public AudioSource animatronicAudio;
+    public AudioClip footstepSound;
     protected virtual void Start()
     {
         Debug.Log($"{animatronicName} has been created!");
@@ -121,6 +123,7 @@ public class AI : MonoBehaviour
                     cameraSprite.sprite = null;
                 if (officeRenderer != null)
                     officeRenderer.enabled = false;
+                animatronicAudio.PlayOneShot(footstepSound);
                 break;
         }
     }

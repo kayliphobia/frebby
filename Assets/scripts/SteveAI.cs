@@ -61,7 +61,7 @@ public class SteveAI : AI
         else
         {
             // Player hid successfully -> Steve retreats
-            SetState(State.Hallway);
+            SetState(State.Resetting);
         }
     }
 
