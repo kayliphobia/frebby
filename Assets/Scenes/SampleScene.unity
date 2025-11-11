@@ -287,15 +287,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 122f5204720d9ab4ea63de19f93b5141, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  secondsPerHour: 50
-  currentDay: 1
-  maxDays: 5
   timeText: {fileID: 620244371}
   dayText: {fileID: 862942492}
   shiftCompleteUI: {fileID: 1080485923}
   gameOverUI: {fileID: 0}
-  animatronicDifficulty: 02000000
-  baseDifficultyPerDay: 02000000
 --- !u!4 &82868717
 Transform:
   m_ObjectHideFlags: 0
@@ -1605,12 +1600,15 @@ MonoBehaviour:
   cameraSprite: {fileID: 1841610153}
   officeRenderer: {fileID: 1287182946}
   gameManager: {fileID: 82868716}
+  animatronicManager: {fileID: 2123959862}
   hallwaySprite: {fileID: -4333155489754791882, guid: 963e4b287fd695742ae0da1843091a6c, type: 3}
   attackSprite: {fileID: 8393687880857051515, guid: c2538fef0fc94ec4d8650294957cef67, type: 3}
   officeSpriteImage: {fileID: -2959521264263237016, guid: 61c8e6b9343e0c8428c503a6de9268ff, type: 3}
   baseMoveDelay: 5
   officeStayTime: 4
   attackWarningTime: 4
+  animatronicName: 0
+  currentState: 0
 --- !u!4 &649344646
 Transform:
   m_ObjectHideFlags: 0
@@ -4581,6 +4579,51 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &2123959861
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2123959863}
+  - component: {fileID: 2123959862}
+  m_Layer: 0
+  m_Name: AnimatronicManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2123959862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2123959861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e27a85e08132aa94199610308f9170c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimatronicManager
+  baseDifficultyPerDay: 1400000014000000
+--- !u!4 &2123959863
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2123959861}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 5.02329, y: -0.11796, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -4596,3 +4639,4 @@ SceneRoots:
   - {fileID: 1147438269}
   - {fileID: 82868717}
   - {fileID: 649344646}
+  - {fileID: 2123959863}
