@@ -6,8 +6,8 @@ public class SteveAI : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private PlayerHidingSystem playerHiding;
-    [SerializeField] private Image cameraSprite;             // still UI sprite for camera feed
-    [SerializeField] private SpriteRenderer officeRenderer;  // 2D world image instead of UI
+    [SerializeField] private Image cameraSprite;             // UI sprite for camera feed
+    [SerializeField] private SpriteRenderer officeRenderer;  // world-space image for office view
     [SerializeField] private GameManager gameManager;
 
     [Header("Sprites")]
@@ -17,8 +17,8 @@ public class SteveAI : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private float baseMoveDelay = 5f;
-    [SerializeField] private float officeStayTime = 4f;
-    [SerializeField] private float attackWarningTime = 2f;
+    [SerializeField] private float officeStayTime = 4f;      // time before leaving or attacking
+    [SerializeField] private float attackWarningTime = 2f;   // how long player sees attack pose before Steve moves in
 
     private enum SteveState { Hallway, AttackPosition, Office, Resetting }
     private SteveState currentState = SteveState.Hallway;
@@ -30,7 +30,7 @@ public class SteveAI : MonoBehaviour
     void Start()
     {
         if (gameManager != null)
-            AILevel = gameManager.GetAILevel("Steve"); // You can define this in your GameManager
+            AILevel = gameManager.GetAILevel("Steve");
 
         SetState(SteveState.Hallway);
         moveTimer = baseMoveDelay;
@@ -50,7 +50,7 @@ public class SteveAI : MonoBehaviour
 
     private void AttemptMovement()
     {
-        int randomRoll = Random.Range(1, 21); // 1–20 inclusive
+        int randomRoll = Random.Range(1, 21);
         if (AILevel >= randomRoll)
         {
             AdvanceState();
@@ -59,7 +59,6 @@ public class SteveAI : MonoBehaviour
 
     private void AdvanceState()
     {
-        Debug.Log("moved");
         switch (currentState)
         {
             case SteveState.Hallway:
@@ -67,7 +66,7 @@ public class SteveAI : MonoBehaviour
                 break;
 
             case SteveState.AttackPosition:
-                StartCoroutine(HandleAttackPosition());
+                StartCoroutine(MoveToOffice());
                 break;
 
             case SteveState.Office:
@@ -80,21 +79,25 @@ public class SteveAI : MonoBehaviour
         }
     }
 
-    private IEnumerator HandleAttackPosition()
+    private IEnumerator MoveToOffice()
     {
+        // Player sees Steve preparing to move (camera + office sprite)
         SetState(SteveState.AttackPosition);
         yield return new WaitForSeconds(attackWarningTime);
 
+        // Move to Office after warning
+        SetState(SteveState.Office);
+        yield return new WaitForSeconds(officeStayTime);
+
+        // Check again after being in office for a while
         if (playerHiding != null && !playerHiding.IsHiding())
         {
-            SetState(SteveState.Office);
-            yield return new WaitForSeconds(1.2f);
+            // Player failed to hide in time -> jumpscare
             TriggerJumpscare();
         }
         else
         {
-            SetState(SteveState.Office);
-            yield return new WaitForSeconds(officeStayTime);
+            // Player hid successfully -> Steve retreats
             SetState(SteveState.Hallway);
         }
     }
@@ -123,7 +126,7 @@ public class SteveAI : MonoBehaviour
 
             case SteveState.AttackPosition:
                 if (cameraSprite != null)
-                    cameraSprite.sprite = hallwaySprite;
+                    cameraSprite.sprite = attackSprite;
                 if (officeRenderer != null)
                 {
                     officeRenderer.enabled = true;
