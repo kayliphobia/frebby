@@ -21,6 +21,8 @@ public class ProductivitySystem : MonoBehaviour
     public float baseDepletionRate = 1f;   // Night 1 baseline
     public float dayMultiplier = 0.3f;     // +30% per additional day
 
+    public MarionetteAI marionette;
+
 
     private string[] fakePhrases = {
         "Compiling report...", "Checking logs...", 
@@ -76,7 +78,7 @@ public class ProductivitySystem : MonoBehaviour
         if (currentValue <= 0)
         {
             Debug.Log("Productivity dropped to 0!");
-            // TODO: trigger puppet-like failure
+            marionette.OnProductivityDepleted();
         }
     }
 
