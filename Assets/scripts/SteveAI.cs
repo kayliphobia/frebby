@@ -36,17 +36,17 @@ public class SteveAI : AI
     // }
     protected override void Update()
     {
-        if (gameManager.getCurrentDay() == 1)
-        {
-            if (gameManager.getCurrentHour() < 12)
-            {
-                AILevel = 0;
-            }
-            else
-            {
-                AILevel = animatronicManager.GetAILevel(1, Animatronic.Steve);
-            }
-        }
+        // if (gameManager.getCurrentDay() == 1)
+        // {
+        //     if (gameManager.getCurrentHour() < 12)
+        //     {
+        //         AILevel = 0;
+        //     }
+        //     else
+        //     {
+        //         AILevel = animatronicManager.GetAILevel(1, Animatronic.Steve);
+        //     }
+        // }
         base.Update();
     }
 }
