@@ -6211,7 +6211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3090c41f6d0f0b94398fb993e49a87db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Office
-  emptyRoomImage: {fileID: -5184413714731412247, guid: 5928c224eb1d41247a58ebbe42dbce3e, type: 3}
+  emptyRoomImage: {fileID: 1323669036792910421, guid: 524f3fdd54826de44b6a7c4cc0290908, type: 3}
   occupiedRoomImages:
   - {fileID: 6028087905386793193, guid: e6ea8d748f6677a49b893a9dd93db165, type: 3}
   - {fileID: -5386390512823441331, guid: 03f78d4c6b5bff04386390871ab0736b, type: 3}
