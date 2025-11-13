@@ -51,7 +51,7 @@ public class AI : MonoBehaviour
 
     protected virtual void Update()
     {
-        Debug.Log("updating");
+        // Debug.Log("updating");
         if (!isActive) return;
 
         moveTimer -= Time.deltaTime;
