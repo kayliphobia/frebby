@@ -1,61 +1,63 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using System.Runtime.CompilerServices;
-using System.Collections.Generic;
-
 
 public class AI : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] protected PlayerHidingSystem playerHiding;
-    [SerializeField] protected Image cameraSprite;             // UI sprite for camera feed
-    [SerializeField] protected SpriteRenderer officeRenderer;  // world-space image for office view
+    // [SerializeField] protected Image cameraSprite;            
+    // [SerializeField] protected SpriteRenderer officeRenderer; 
     [SerializeField] protected GameManager gameManager;
-
     [SerializeField] protected AnimatronicManager animatronicManager;
 
-    [Header("Sprites")]
-    [SerializeField] protected Sprite hallwaySprite;           // camera sprite when in hallway
-    [SerializeField] protected Sprite attackSprite;            // sprite for attack position
-    [SerializeField] protected Sprite officeSpriteImage;       // sprite shown when in office
+    // [Header("Sprites")]
+    // [SerializeField] protected Sprite hallwaySprite;
+    // [SerializeField] protected Sprite attackSprite;
+    // [SerializeField] protected Sprite officeSpriteImage;
 
     [Header("Settings")]
-    [SerializeField] protected float baseMoveDelay;
-    [SerializeField] protected float officeStayTime;      // time before leaving or attacking
-    [SerializeField] protected float attackWarningTime;   // how long player sees attack pose before Steve moves in
+    [SerializeField] protected float baseMoveDelay = 3f;
+    [SerializeField] protected float officeStayTime = 2f;
+    [SerializeField] protected float attackWarningTime = 1f;
+    [SerializeField] protected Animatronic aiName;
 
-    [SerializeField] protected Animatronic animatronicName; // name of this animatronic
+    [Header("Room System")]
+    [SerializeField] protected Room currentRoom;
 
+    public int AILevel;
     protected float moveTimer;
-    protected int AILevel;
     protected bool isActive = true;
 
-    protected enum State { Hallway, AttackPosition, Office, Resetting }
-
-    [SerializeField]
-    protected State currentState;
-
-    protected Dictionary<State, System.Action> stateMapping;
+    public Animatronic GetAIName() => aiName;
 
     public AudioSource animatronicAudio;
     public AudioClip footstepSound;
+    public AudioClip attackSound;
+
     protected virtual void Start()
     {
-        Debug.Log($"{animatronicName} has been created!");
+        Debug.Log($"{aiName} has been created!");
         if (animatronicManager != null)
-            AILevel = animatronicManager.GetAILevel(gameManager.getCurrentDay(), Animatronic.Steve);
+            AILevel = animatronicManager.GetAILevel(gameManager.getCurrentDay(), aiName);
 
         moveTimer = baseMoveDelay;
+
+        if (currentRoom != null)
+            currentRoom.Enter(this);
+
+        // UpdateRoomVisuals();
     }
 
-    void Update()
+    protected virtual void Update()
     {
+        Debug.Log("updating");
         if (!isActive) return;
 
         moveTimer -= Time.deltaTime;
         if (moveTimer <= 0f)
         {
+            Debug.Log("Trying to move");
             AttemptMovement();
             moveTimer = baseMoveDelay;
         }
@@ -66,65 +68,94 @@ public class AI : MonoBehaviour
         int randomRoll = Random.Range(1, 21);
         if (AILevel >= randomRoll)
         {
-            AdvanceState();
+            AdvanceRoom();
+        } else
+        {
+            Debug.Log("Move failed");
+            
         }
     }
 
-    protected void AdvanceState()
+    protected void AdvanceRoom()
     {
-        stateMapping[currentState]();
-        Debug.Log($"{name} has advanced to state {currentState}");
+        if (currentRoom == null) return;
+
+        Room nextRoom = currentRoom.GetWeightedConnectedRoom();
+        if (nextRoom != null)
+        {
+            currentRoom.Leave(this);
+            currentRoom = nextRoom;
+            currentRoom.Enter(this);
+
+            // UpdateRoomVisuals();
+
+            if (currentRoom.roomName.Contains("Office"))
+                StartCoroutine(AttackRoutine());
+        }
+        else
+        {
+            Debug.Log($"{aiName} could not move, waiting in {currentRoom.roomName}");
+        }
+    }
+
+    protected virtual IEnumerator AttackRoutine()
+    {
+        if (currentRoom == null || playerHiding == null) yield break;
+
+        // if (officeRenderer != null)
+        // {
+        //     officeRenderer.enabled = true;
+        //     officeRenderer.sprite = attackSprite;
+        // }
+
+        yield return new WaitForSeconds(attackWarningTime);
+
+        if (!playerHiding.IsHiding())
+            TriggerJumpscare();
+        else
+        {
+            // Retreat to previous or connected room if available
+            Room retreatRoom = ((Office) currentRoom).GetWeightedConnectedRoom();
+            if (retreatRoom != null)
+            {
+                currentRoom.Leave(this);
+                currentRoom = retreatRoom;
+                animatronicAudio.PlayOneShot(footstepSound);
+                currentRoom.Enter(this);
+                // UpdateRoomVisuals();
+            }
+        }
     }
 
     protected void TriggerJumpscare()
     {
         Debug.Log("Jumpscare triggered!");
         if (gameManager != null)
-            gameManager.TriggerGameOver($"{animatronicName} entered the office");
-        else
-            Debug.LogWarning("No GameManager connected — manually handle game over.");
+            gameManager.TriggerGameOver($"{aiName} entered the office");
     }
 
-    protected void SetState(State newState)
-    {
-        currentState = newState;
-
-        switch (newState)
-        {
-            case State.Hallway:
-                if (cameraSprite != null)
-                    cameraSprite.sprite = hallwaySprite;
-                if (officeRenderer != null)
-                    officeRenderer.enabled = false;
-                break;
-
-            case State.AttackPosition:
-                // if (cameraSprite != null)
-                //     cameraSprite.sprite = attackSprite;
-                if (officeRenderer != null)
-                {
-                    officeRenderer.enabled = true;
-                    officeRenderer.sprite = attackSprite;
-                }
-                break;
-
-            case State.Office:
-                if (cameraSprite != null)
-                    cameraSprite.sprite = null;
-                if (officeRenderer != null)
-                {
-                    officeRenderer.enabled = true;
-                    officeRenderer.sprite = officeSpriteImage;
-                }
-                break;
-
-            case State.Resetting:
-                if (cameraSprite != null)
-                    cameraSprite.sprite = null;
-                if (officeRenderer != null)
-                    officeRenderer.enabled = false;
-                animatronicAudio.PlayOneShot(footstepSound);
-                break;
-        }
-    }
+    // protected void UpdateRoomVisuals()
+    // {
+    //     if (currentRoom.roomName.Contains("Hallway"))
+    //     {
+    //         if (cameraSprite != null) cameraSprite.sprite = hallwaySprite;
+    //         if (officeRenderer != null) officeRenderer.enabled = false;
+    //     }
+    //     else if (currentRoom.roomName.Contains("AttackPosition"))
+    //     {
+    //         if (officeRenderer != null)
+    //         {
+    //             officeRenderer.enabled = true;
+    //             officeRenderer.sprite = attackSprite;
+    //         }
+    //     }
+    //     else if (currentRoom.roomName.Contains("Office"))
+    //     {
+    //         if (officeRenderer != null)
+    //         {
+    //             officeRenderer.enabled = true;
+    //             officeRenderer.sprite = officeSpriteImage;
+    //         }
+    //     }
+    // }
 }

@@ -20,10 +20,13 @@ public class GameManager : MonoBehaviour
     public GameObject shiftCompleteUI;
     public GameObject gameOverUI;         // optional UI overlay for death screen
 
+    public AudioSource tutorialAudioSource;
+    public AudioClip tutorialAudio;
     private bool shiftActive = true;
     private bool isGameOver = false;
 
     public int getCurrentDay() => currentDay;
+    public int getCurrentHour() => currentHour;
 
     void Start()
     {
@@ -61,7 +64,10 @@ public class GameManager : MonoBehaviour
         // {
         //     animatronicDifficulty[i] = Mathf.Clamp(day * baseDifficultyPerDay[i], 1, 20);
         // }
-
+        if (day == 1)
+        {
+            tutorialAudioSource.PlayOneShot(tutorialAudio);
+        }
         UpdateUI();
     }
 

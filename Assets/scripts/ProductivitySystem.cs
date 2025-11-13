@@ -32,6 +32,7 @@ public class ProductivitySystem : MonoBehaviour
 
     void Start()
     {
+        
         gameManager = FindFirstObjectByType<GameManager>();
 
         currentValue = maxValue;

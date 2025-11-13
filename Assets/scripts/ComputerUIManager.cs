@@ -6,6 +6,11 @@ public class ComputerUIManager : MonoBehaviour
     public GameObject productivityPanel;
     public ProductivitySystem productivitySystem;
 
+    void Start()
+    {
+        cameraPanel.SetActive(false);
+        productivityPanel.SetActive(false);
+    }
     public void OpenProductivity()
     {
         cameraPanel.SetActive(false);
