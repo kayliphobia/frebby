@@ -2293,6 +2293,7 @@ Transform:
   - {fileID: 2123959863}
   - {fileID: 1370748345}
   - {fileID: 1303646953}
+  - {fileID: 1792754632}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &649344644
@@ -2477,6 +2478,62 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1786362610}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &662868018
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 662868019}
+  - component: {fileID: 662868020}
+  m_Layer: 0
+  m_Name: JohnAI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &662868019
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662868018}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1792754632}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &662868020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 662868018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6c257f3e0a778c40b8c11809aea6b6c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JohnAI
+  playerHiding: {fileID: 82868718}
+  gameManager: {fileID: 82868716}
+  animatronicManager: {fileID: 2123959862}
+  baseMoveDelay: 3
+  officeStayTime: 2
+  attackWarningTime: 1
+  aiName: 2
+  currentRoom: {fileID: 1932083522}
+  AILevel: 0
+  animatronicAudio: {fileID: 0}
+  footstepSound: {fileID: 0}
+  attackSound: {fileID: 0}
 --- !u!1 &745333146
 GameObject:
   m_ObjectHideFlags: 0
@@ -5576,6 +5633,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1788833973}
   m_CullTransparentMesh: 1
+--- !u!1 &1792754631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1792754632}
+  m_Layer: 0
+  m_Name: John
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1792754632
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1792754631}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 662868019}
+  m_Father: {fileID: 645025207}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1834450638
 GameObject:
   m_ObjectHideFlags: 0
@@ -6160,7 +6249,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Room
   emptyRoomImage: {fileID: 0}
-  occupiedRoomImages: []
+  occupiedRoomImages:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   backgroundRenderer: {fileID: 0}
   roomName: 
   officeBias: 80
@@ -6215,6 +6307,7 @@ MonoBehaviour:
   occupiedRoomImages:
   - {fileID: 6028087905386793193, guid: e6ea8d748f6677a49b893a9dd93db165, type: 3}
   - {fileID: -5386390512823441331, guid: 03f78d4c6b5bff04386390871ab0736b, type: 3}
+  - {fileID: 0}
   backgroundRenderer: {fileID: 1598927510}
   roomName: 
   officeBias: 100
@@ -6884,7 +6977,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27a85e08132aa94199610308f9170c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimatronicManager
-  baseDifficultyPerDay: 0100000001000000
+  baseDifficultyPerDay: 010000000100000014000000
 --- !u!4 &2123959863
 Transform:
   m_ObjectHideFlags: 0

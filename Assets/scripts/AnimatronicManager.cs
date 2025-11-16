@@ -5,6 +5,7 @@ public enum Animatronic
 {
     Steve,
     Marionette,
+    John,
 }
 public class AnimatronicManager : MonoBehaviour
 {
