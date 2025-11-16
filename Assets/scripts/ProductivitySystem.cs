@@ -68,6 +68,10 @@ public class ProductivitySystem : MonoBehaviour
     void DepleteBar()
     {
         int day = gameManager != null ? gameManager.getCurrentDay() : 1;
+        if (day == 1 && gameManager.getCurrentHour() < 12)
+        {
+            return;
+        }
         float scaledDepletion = baseDepletionRate * (1f + (day - 1) * dayMultiplier);
 
         currentValue -= scaledDepletion;
