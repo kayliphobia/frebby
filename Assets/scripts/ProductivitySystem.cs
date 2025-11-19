@@ -98,4 +98,8 @@ public class ProductivitySystem : MonoBehaviour
         if (!active && fakeTextOutput != null)
             fakeTextOutput.text = "";
     }
+
+    public void ResetProductivity() {
+        currentValue = maxValue;
+    }
 }

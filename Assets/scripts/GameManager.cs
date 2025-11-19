@@ -1,5 +1,7 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -7,7 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private const float secondsPerHour = 50f;   // how long each hour lasts in real time
     private float hourTimer = 0f;
-    private int currentHour = 9;
+    private int currentHour = 16;
     private const int endHour = 17;             // 5PM
 
     [Header("Day Settings")]
@@ -19,6 +21,10 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI dayText;
     public GameObject shiftCompleteUI;
     public GameObject gameOverUI;         // optional UI overlay for death screen
+
+    [Header("Day Transition")]
+    public SpriteRenderer dayStartTransitionBackground;
+    public List<Sprite> dayStartTransitionBackgrounds;
 
     public AudioSource tutorialAudioSource;
     public AudioClip tutorialAudio;
@@ -49,7 +55,7 @@ public class GameManager : MonoBehaviour
             hourTimer = 0f;
             currentHour++;
 
-            if (currentHour > endHour)
+            if (currentHour >= endHour)
             {
                 currentHour = endHour;
                 EndShift();
@@ -72,7 +78,14 @@ public class GameManager : MonoBehaviour
         {
             subtitlePlayer.PlayWithSubtitles(voiceClip, subtitleFile);
         }
+        FindFirstObjectByType<ProductivitySystem>()?.ResetProductivity();
+
         UpdateUI();
+        AI[] animatronics = FindObjectsByType<AI>(FindObjectsSortMode.None);
+        foreach (AI animatronic in animatronics) {
+            animatronic.Reset();
+        }
+        StartCoroutine(BeginDayStartTransition(4));
     }
 
     void EndShift()
@@ -80,6 +93,7 @@ public class GameManager : MonoBehaviour
         shiftActive = false;
         if (shiftCompleteUI != null)
             shiftCompleteUI.SetActive(true);
+        NextDay();
     }
 
     public void NextDay()
@@ -141,4 +155,17 @@ public class GameManager : MonoBehaviour
         if (gameOverUI != null)
             gameOverUI.SetActive(true);
     }
+
+    public IEnumerator BeginDayStartTransition(int duration) {
+        dayStartTransitionBackground.sprite = dayStartTransitionBackgrounds[currentDay - 1];
+        dayStartTransitionBackground.color = new Color(1, 1, 1, 1);
+        float currentTime = 0;
+        while (currentTime < duration) {
+            dayStartTransitionBackground.color = new Color(1, 1, 1, (duration - currentTime) / duration);
+            currentTime += Time.deltaTime;
+            yield return null;
+        }
+
+    }
+    
 }

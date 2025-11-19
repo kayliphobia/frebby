@@ -23,7 +23,9 @@ public class AI : MonoBehaviour
     [SerializeField] protected Animatronic aiName;
 
     [Header("Room System")]
-    [SerializeField] protected Room currentRoom;
+    public Room startRoom;
+    protected Room currentRoom;
+
 
     public int AILevel;
     protected float moveTimer;
@@ -38,6 +40,7 @@ public class AI : MonoBehaviour
     protected virtual void Start()
     {
         Debug.Log($"{aiName} has been created!");
+        Reset();
         if (animatronicManager != null)
             AILevel = animatronicManager.GetAILevel(gameManager.getCurrentDay(), aiName);
 
@@ -132,6 +135,13 @@ public class AI : MonoBehaviour
         Debug.Log("Jumpscare triggered!");
         if (gameManager != null)
             gameManager.TriggerGameOver($"{aiName} entered the office");
+    }
+
+    public void Reset()
+    { 
+        Debug.Log($"reset {aiName}");
+        currentRoom = startRoom;
+        currentRoom.Enter(this);
     }
 
     // protected void UpdateRoomVisuals()
