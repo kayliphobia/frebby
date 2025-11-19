@@ -6977,11 +6977,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27a85e08132aa94199610308f9170c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimatronicManager
-<<<<<<< Updated upstream
   baseDifficultyPerDay: 010000000100000014000000
-=======
-  baseDifficultyPerDay: 1400000001000000
->>>>>>> Stashed changes
 --- !u!4 &2123959863
 Transform:
   m_ObjectHideFlags: 0
