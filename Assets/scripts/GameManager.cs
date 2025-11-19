@@ -25,6 +25,10 @@ public class GameManager : MonoBehaviour
     private bool shiftActive = true;
     private bool isGameOver = false;
 
+    public SubtitlePlayer subtitlePlayer;
+    public AudioClip voiceClip;
+    public SubtitleData subtitleFile;
+
     public int getCurrentDay() => currentDay;
     public int getCurrentHour() => currentHour;
 
@@ -66,7 +70,7 @@ public class GameManager : MonoBehaviour
         // }
         if (day == 1)
         {
-            tutorialAudioSource.PlayOneShot(tutorialAudio);
+            subtitlePlayer.PlayWithSubtitles(voiceClip, subtitleFile);
         }
         UpdateUI();
     }

@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ea1c20b3282e824ab245b1cc794a591, type: 3}
+  m_Name: day1Phonecall
+  m_EditorClassIdentifier: Assembly-CSharp::SubtitleData
+  lines:
+  - time: 0
+    text: '[Phone Ringing]'
+  - time: 10.6
+    text: Hello? Hello, hello?
+  - time: 12.8
+    text: I was told to record a message for you, for your first day at the office.
+  - time: 16.6
+    text: I used to work in this exact cubicle, you know, before I was caught, uh,
+      lacking.
+  - time: 21.6
+    text: 'But yeah, I''m supposed to help introduce you to the company, get you
+      through your first week. '
+  - time: 21.6
+    text: 'But yeah, I''m supposed to help introduce you to the company, get you
+      through your first week. '
+  - time: 21.6
+    text: Just do your work, Nothing too much to worry about.
+  - time: 30.7
+    text: "Uh, let\u2019s see, first there\u2019s an introductory greeting from the
+      company, which I\u2019m supposed to read."
+  - time: 30.7
+    text: "Uh, it\u2019s kind of a legal thing, you know."
