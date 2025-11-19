@@ -343,7 +343,7 @@ MonoBehaviour:
   shiftCompleteUI: {fileID: 1080485923}
   gameOverUI: {fileID: 0}
   tutorialAudioSource: {fileID: 745333147}
-  tutorialAudio: {fileID: 8300000, guid: 8742fa0b9efb2d04b955060fd2d5852b, type: 3}
+  tutorialAudio: {fileID: 8300000, guid: c18a4d5afb0ed624daf93eccc736252b, type: 3}
 --- !u!4 &82868717
 Transform:
   m_ObjectHideFlags: 0
@@ -1110,14 +1110,14 @@ RectTransform:
   m_GameObject: {fileID: 438886387}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 7}
-  m_LocalScale: {x: 8.827605, y: 4.5228095, z: 4.5228095}
+  m_LocalScale: {x: 8.827605, y: 4.6358795, z: 4.5228095}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1391541629}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.060735, y: 0.13}
+  m_AnchoredPosition: {x: 0.060735, y: 0.12974}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &438886391
@@ -2464,7 +2464,7 @@ MonoBehaviour:
   currentRoom: {fileID: 1579610927}
   AILevel: 0
   animatronicAudio: {fileID: 1007772115}
-  footstepSound: {fileID: 8300000, guid: f1f8ecf085e8c2043b2c8f3e1ee60cb6, type: 3}
+  footstepSound: {fileID: 8300000, guid: a39024e04f041114eba1361b6536374c, type: 3}
   attackSound: {fileID: 0}
 --- !u!4 &649344646
 Transform:
