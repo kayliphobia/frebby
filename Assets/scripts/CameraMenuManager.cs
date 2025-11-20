@@ -7,6 +7,7 @@ public class CameraMenuManager : MonoBehaviour
 {
     [Header("References")]
     public GameObject cameraMenuUI;
+    public GameObject productivityUI;
     public CameraPan cameraPan; // <-- reference to the pan script
     [SerializeField] private Collider2D computerCollider;
 
@@ -56,6 +57,7 @@ public class CameraMenuManager : MonoBehaviour
     public void CloseCamera()
     {
         cameraMenuUI.SetActive(false);
+        productivityUI.SetActive(false);
         if (cameraPan != null)
             cameraPan.canPan = true; // unlock panning
 

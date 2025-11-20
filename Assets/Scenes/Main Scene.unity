@@ -387,7 +387,7 @@ MonoBehaviour:
   breathingSpeed: 4
   breathingIntensity: 0.15
   sfxSource: {fileID: 851989320}
-  hidingsfx: {fileID: 8300000, guid: 69fd1946b2d6c4843badb1274258e76a, type: 3}
+  hidingsfx: {fileID: 8300000, guid: 01700c39d45950c4da0fd0bfeb825412, type: 3}
 --- !u!1 &236774754
 GameObject:
   m_ObjectHideFlags: 0
@@ -4163,16 +4163,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
+  m_Sprite: {fileID: 1235895011161637035, guid: 6b8eebcb5e0007a418d8f221669e9781, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -5259,16 +5259,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
+  m_Sprite: {fileID: 1235895011161637035, guid: 6b8eebcb5e0007a418d8f221669e9781, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -6874,6 +6874,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraMenuManager
   cameraMenuUI: {fileID: 1841610151}
+  productivityUI: {fileID: 389439391}
   cameraPan: {fileID: 519420033}
   computerCollider: {fileID: 438886389}
   currentCamera: {fileID: 1579610927}
