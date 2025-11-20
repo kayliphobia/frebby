@@ -41,8 +41,6 @@ public class AI : MonoBehaviour
     {
         Debug.Log($"{aiName} has been created!");
         Reset();
-        if (animatronicManager != null)
-            AILevel = animatronicManager.GetAILevel(gameManager.getCurrentDay(), aiName);
 
         moveTimer = baseMoveDelay;
 
@@ -102,7 +100,7 @@ public class AI : MonoBehaviour
     }
 
     protected virtual IEnumerator AttackRoutine()
-    {
+    {   
         if (currentRoom == null || playerHiding == null) yield break;
 
         // if (officeRenderer != null)
@@ -112,7 +110,6 @@ public class AI : MonoBehaviour
         // }
 
         yield return new WaitForSeconds(attackWarningTime);
-
         if (!playerHiding.IsHiding())
             TriggerJumpscare();
         else
@@ -142,6 +139,8 @@ public class AI : MonoBehaviour
         Debug.Log($"reset {aiName}");
         currentRoom = startRoom;
         currentRoom.Enter(this);
+        if (animatronicManager != null)
+            AILevel = animatronicManager.GetAILevel(gameManager.getCurrentDay(), aiName);
     }
 
     // protected void UpdateRoomVisuals()
