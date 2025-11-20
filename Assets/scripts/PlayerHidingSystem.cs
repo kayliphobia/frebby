@@ -17,6 +17,9 @@ public class PlayerHidingSystem : MonoBehaviour
     [SerializeField] private float breathingSpeed = 1.5f;
     [SerializeField] private float breathingIntensity = 0.1f;
 
+    [SerializeField] private AudioSource sfxSource;   // must NOT be looping
+    [SerializeField] private AudioClip hidingsfx;
+
     private bool isHiding = false;
     private Vector3 originalCameraPos;
     private Coroutine transitionRoutine;
@@ -56,11 +59,11 @@ public class PlayerHidingSystem : MonoBehaviour
     private void ToggleHide()
     {
         isHiding = !isHiding;
-
         if (transitionRoutine != null)
             StopCoroutine(transitionRoutine);
 
         transitionRoutine = StartCoroutine(HideTransition(isHiding));
+        
     }
 
     private IEnumerator HideTransition(bool hide)
@@ -72,6 +75,7 @@ public class PlayerHidingSystem : MonoBehaviour
         float endAlpha = hide ? 0.8f : 0f;
 
         float time = 0f;
+        sfxSource.PlayOneShot(hidingsfx);
         while (time < transitionDuration)
         {
             time += Time.deltaTime;
