@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private const float secondsPerHour = 50f;   // how long each hour lasts in real time
     private float hourTimer = 0f;
-    private int currentHour = 16;
+    private int currentHour = 9;
     private const int endHour = 17;             // 5PM
 
     [Header("Day Settings")]
