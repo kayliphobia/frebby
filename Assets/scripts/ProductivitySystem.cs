@@ -21,6 +21,8 @@ public class ProductivitySystem : MonoBehaviour
     public float baseDepletionRate = 1f;   // Night 1 baseline
     public float dayMultiplier = 0.3f;     // +30% per additional day
 
+    [SerializeField] private AudioSource sfxSource;
+    [SerializeField] private AudioClip sfx;
     public MarionetteAI marionette;
 
 
@@ -79,6 +81,11 @@ public class ProductivitySystem : MonoBehaviour
 
         if (windowActive && productivityBar != null)
             productivityBar.value = currentValue;
+
+        if (currentValue == 50)
+        {
+            sfxSource.PlayOneShot(sfx);
+        }
 
         if (currentValue <= 0)
         {
