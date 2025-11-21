@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ public class GameManager : MonoBehaviour
     public GameObject gameOverUI;         // optional UI overlay for death screen
 
     [Header("Day Transition")]
-    public SpriteRenderer dayStartTransitionBackground;
+    public Image dayStartTransitionBackground;
     public List<Sprite> dayStartTransitionBackgrounds;
 
     public AudioSource tutorialAudioSource;
