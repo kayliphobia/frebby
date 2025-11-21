@@ -21,9 +21,11 @@ public class AI : MonoBehaviour
     [SerializeField] protected float officeStayTime = 2f;
     [SerializeField] protected float attackWarningTime = 1f;
     [SerializeField] protected Animatronic aiName;
+    [SerializeField] protected float graceTimer = 5f;
 
     [Header("Room System")]
     public Room startRoom;
+    [SerializeField]
     protected Room currentRoom;
 
 
@@ -122,6 +124,7 @@ public class AI : MonoBehaviour
                 currentRoom = retreatRoom;
                 animatronicAudio.PlayOneShot(footstepSound);
                 currentRoom.Enter(this);
+                moveTimer = graceTimer;
                 // UpdateRoomVisuals();
             }
         }
@@ -137,10 +140,17 @@ public class AI : MonoBehaviour
     public void Reset()
     { 
         Debug.Log($"reset {aiName}");
+        if (currentRoom)
+        {
+            currentRoom.Leave(this);
+        }
         currentRoom = startRoom;
         currentRoom.Enter(this);
+        Debug.Log($"{aiName} was reset to {currentRoom}");
         if (animatronicManager != null)
             AILevel = animatronicManager.GetAILevel(gameManager.getCurrentDay(), aiName);
+
+        moveTimer = graceTimer;
     }
 
     // protected void UpdateRoomVisuals()

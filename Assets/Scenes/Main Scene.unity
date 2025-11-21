@@ -289,7 +289,7 @@ MonoBehaviour:
   dayText: {fileID: 862942492}
   shiftCompleteUI: {fileID: 1080485923}
   gameOverUI: {fileID: 0}
-  dayStartTransitionBackground: {fileID: 1688088017}
+  dayStartTransitionBackground: {fileID: 933140671}
   dayStartTransitionBackgrounds:
   - {fileID: 1344172079330143534, guid: 27724f3c674207043907b1cc39bd5953, type: 3}
   - {fileID: 6493452754535608025, guid: 47d0fc87b07afd749a2516d0c4ac6245, type: 3}
@@ -467,6 +467,7 @@ MonoBehaviour:
   backgroundRenderer: {fileID: 0}
   roomName: 
   officeBias: 85
+  occupant: {fileID: 0}
 --- !u!1 &205936642
 GameObject:
   m_ObjectHideFlags: 0
@@ -556,6 +557,7 @@ MonoBehaviour:
   backgroundRenderer: {fileID: 0}
   roomName: 
   officeBias: 1
+  occupant: {fileID: 0}
 --- !u!1 &232977177
 GameObject:
   m_ObjectHideFlags: 0
@@ -609,6 +611,7 @@ MonoBehaviour:
   backgroundRenderer: {fileID: 0}
   roomName: 
   officeBias: 1
+  occupant: {fileID: 0}
 --- !u!1 &308198207
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,6 +770,7 @@ MonoBehaviour:
   backgroundRenderer: {fileID: 0}
   roomName: 
   officeBias: 90
+  occupant: {fileID: 0}
 --- !u!1 &343887286
 GameObject:
   m_ObjectHideFlags: 0
@@ -1775,6 +1779,7 @@ RectTransform:
   m_Children:
   - {fileID: 1841610152}
   - {fileID: 389439392}
+  - {fileID: 933140670}
   m_Father: {fileID: 2085396093}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2451,7 +2456,9 @@ MonoBehaviour:
   officeStayTime: 1
   attackWarningTime: 1
   aiName: 1
+  graceTimer: 5
   startRoom: {fileID: 1059454369}
+  currentRoom: {fileID: 0}
   AILevel: 0
   animatronicAudio: {fileID: 351454767}
   footstepSound: {fileID: 0}
@@ -2971,7 +2978,9 @@ MonoBehaviour:
   officeStayTime: 3
   attackWarningTime: 4
   aiName: 0
+  graceTimer: 5
   startRoom: {fileID: 1037729884}
+  currentRoom: {fileID: 0}
   AILevel: 0
   animatronicAudio: {fileID: 1007772115}
   footstepSound: {fileID: 8300000, guid: a39024e04f041114eba1361b6536374c, type: 3}
@@ -3300,7 +3309,9 @@ MonoBehaviour:
   officeStayTime: 2
   attackWarningTime: 3
   aiName: 2
+  graceTimer: 5
   startRoom: {fileID: 664533212}
+  currentRoom: {fileID: 0}
   AILevel: 0
   animatronicAudio: {fileID: 0}
   footstepSound: {fileID: 0}
@@ -3359,6 +3370,7 @@ MonoBehaviour:
   backgroundRenderer: {fileID: 0}
   roomName: 
   officeBias: 70
+  occupant: {fileID: 0}
 --- !u!1 &745333146
 GameObject:
   m_ObjectHideFlags: 0
@@ -4182,6 +4194,81 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &933140669
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 933140670}
+  - component: {fileID: 933140672}
+  - component: {fileID: 933140671}
+  m_Layer: 5
+  m_Name: DayStartBackground
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &933140670
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933140669}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 477576607}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0.7609596, y: -0.39252853}
+  m_SizeDelta: {x: 789.65, y: 401.45}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &933140671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933140669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 1344172079330143534, guid: 27724f3c674207043907b1cc39bd5953, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &933140672
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933140669}
+  m_CullTransparentMesh: 1
 --- !u!1 &941039528
 GameObject:
   m_ObjectHideFlags: 0
@@ -4235,6 +4322,7 @@ MonoBehaviour:
   backgroundRenderer: {fileID: 0}
   roomName: 
   officeBias: 75
+  occupant: {fileID: 0}
 --- !u!1 &1007772114
 GameObject:
   m_ObjectHideFlags: 0
@@ -4417,6 +4505,7 @@ MonoBehaviour:
   backgroundRenderer: {fileID: 0}
   roomName: 
   officeBias: 1
+  occupant: {fileID: 0}
 --- !u!1 &1059454367
 GameObject:
   m_ObjectHideFlags: 0
@@ -4470,6 +4559,7 @@ MonoBehaviour:
   backgroundRenderer: {fileID: 0}
   roomName: 
   officeBias: 1
+  occupant: {fileID: 0}
 --- !u!1 &1080485923
 GameObject:
   m_ObjectHideFlags: 0
@@ -4598,6 +4688,7 @@ MonoBehaviour:
   backgroundRenderer: {fileID: 0}
   roomName: 
   officeBias: 1
+  occupant: {fileID: 0}
 --- !u!1 &1113281533
 GameObject:
   m_ObjectHideFlags: 0
@@ -5671,6 +5762,7 @@ MonoBehaviour:
   backgroundRenderer: {fileID: 0}
   roomName: 
   officeBias: 85
+  occupant: {fileID: 0}
 --- !u!1 &1547645712
 GameObject:
   m_ObjectHideFlags: 0
@@ -6315,96 +6407,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1669322034}
   m_CullTransparentMesh: 1
---- !u!1 &1688088015
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1688088016}
-  - component: {fileID: 1688088017}
-  m_Layer: 0
-  m_Name: DayStartBackground
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1688088016
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1688088015}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.249, y: 6.4488, z: 0}
-  m_LocalScale: {x: 1.3625308, y: 1.3625308, z: 1.3625308}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 1786362610}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &1688088017
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1688088015}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 1344172079330143534, guid: 27724f3c674207043907b1cc39bd5953, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 19.2, y: 10.8}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
 --- !u!1 &1688866813
 GameObject:
   m_ObjectHideFlags: 0
@@ -6457,6 +6459,7 @@ MonoBehaviour:
   backgroundRenderer: {fileID: 1843672298}
   roomName: 
   officeBias: 1
+  occupant: {fileID: 0}
 --- !u!1 &1709626199
 GameObject:
   m_ObjectHideFlags: 0
@@ -6842,6 +6845,7 @@ MonoBehaviour:
   backgroundRenderer: {fileID: 0}
   roomName: 
   officeBias: 75
+  occupant: {fileID: 0}
 --- !u!1 &1750338646
 GameObject:
   m_ObjectHideFlags: 0
@@ -7163,6 +7167,7 @@ MonoBehaviour:
   backgroundRenderer: {fileID: 0}
   roomName: 
   officeBias: 65
+  occupant: {fileID: 0}
 --- !u!1 &1786362609
 GameObject:
   m_ObjectHideFlags: 0
@@ -7192,7 +7197,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1688088016}
   - {fileID: 661627648}
   - {fileID: 638117324}
   - {fileID: 1598927511}
@@ -8261,6 +8265,7 @@ MonoBehaviour:
   backgroundRenderer: {fileID: 1598927510}
   roomName: 
   officeBias: 100
+  occupant: {fileID: 0}
   retreatRooms:
   - {fileID: 1037729884}
   - {fileID: 0}
@@ -8321,6 +8326,7 @@ MonoBehaviour:
   backgroundRenderer: {fileID: 0}
   roomName: 
   officeBias: 80
+  occupant: {fileID: 0}
 --- !u!1 &1992122969
 GameObject:
   m_ObjectHideFlags: 0
@@ -8697,6 +8703,7 @@ MonoBehaviour:
   backgroundRenderer: {fileID: 929662680}
   roomName: 
   officeBias: 95
+  occupant: {fileID: 0}
 --- !u!1 &2123959861
 GameObject:
   m_ObjectHideFlags: 0

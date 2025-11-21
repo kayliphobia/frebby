@@ -20,6 +20,7 @@ public class Room : MonoBehaviour
     [Tooltip("Higher means more likely an AI will move here")]
     public float officeBias = 1f; // bias toward office
 
+    [SerializeField]
     protected AI occupant;
 
     public bool IsOccupied() => occupant != null;
