@@ -32,9 +32,9 @@ public class GlitchEffect : MonoBehaviour
         yield return new WaitForSeconds(glitchDuration);
 
         // Fade Out
-        t = 0f;
+        t = 0.2f;
 
-        while (c.a > 0f)
+        while (c.a > 0.2f)
         {
             t += Time.deltaTime / fadeOutSpeed;
             c.a = Mathf.Lerp(1f, 0f, t);
