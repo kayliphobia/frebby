@@ -716,6 +716,9 @@ MonoBehaviour:
   randomClips:
   - {fileID: 8300000, guid: 9e374332f5145b740a41c3d1a11ac432, type: 3}
   - {fileID: 8300000, guid: 44edca044ba29db4aaf35b2c1784a6fe, type: 3}
+  - {fileID: 8300000, guid: c2334ef010076c24d907a4f7dd7749de, type: 3}
+  - {fileID: 8300000, guid: 3f25b2c3955c4c440bb5ebe843536d75, type: 3}
+  - {fileID: 8300000, guid: b1f0650233629d84bb18b46678c50ac5, type: 3}
   minDelay: 12
   maxDelay: 24
 --- !u!1 &337459156
