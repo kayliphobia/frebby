@@ -7,9 +7,8 @@ public class PlayerHidingSystem : MonoBehaviour
     [Header("References")]
     [SerializeField] private Button hideButton;
     [SerializeField] private Transform cameraTransform;
-    [SerializeField] private Image vignetteImage; // fade + breathing
-
-    [SerializeField] private Image hideImage; // fade + breathing
+    [SerializeField] private Image vignetteImage;
+    [SerializeField] private Image hideImage;
 
     [Header("Settings")]
     [SerializeField] private float cameraDownOffset = -1.2f;
@@ -17,16 +16,20 @@ public class PlayerHidingSystem : MonoBehaviour
     [SerializeField] private float breathingSpeed = 1.5f;
     [SerializeField] private float breathingIntensity = 0.1f;
 
-    [SerializeField] private AudioSource sfxSource;   // must NOT be looping
+    [Header("Sound Effects")]
+    [SerializeField] private AudioSource sfxSource;       // one-shot sfx (already used)
     [SerializeField] private AudioClip hidingsfx;
+
+    [SerializeField] private AudioSource heartbeatSource; // NEW – looping heartbeat source
+    [SerializeField] private AudioClip heartbeatClip;     // NEW – heartbeat clip
 
     private bool isHiding = false;
     private Vector3 originalCameraPos;
     private Coroutine transitionRoutine;
+    private Coroutine heartbeatRoutine;
     private Color baseColor;
 
     public bool IsHiding() => isHiding;
-
 
     void Start()
     {
@@ -41,12 +44,18 @@ public class PlayerHidingSystem : MonoBehaviour
             vignetteImage.color = new Color(baseColor.r, baseColor.g, baseColor.b, 0f);
         }
 
+        if (heartbeatSource != null)
+        {
+            heartbeatSource.clip = heartbeatClip;
+            heartbeatSource.loop = true;
+            heartbeatSource.volume = 0f;
+        }
+
         hideButton.onClick.AddListener(ToggleHide);
     }
 
     void Update()
     {
-        // breathing vignette pulse while hiding
         if (isHiding && vignetteImage != null)
         {
             float alphaOffset = Mathf.Sin(Time.time * breathingSpeed) * breathingIntensity;
@@ -59,11 +68,17 @@ public class PlayerHidingSystem : MonoBehaviour
     private void ToggleHide()
     {
         isHiding = !isHiding;
+
         if (transitionRoutine != null)
             StopCoroutine(transitionRoutine);
 
         transitionRoutine = StartCoroutine(HideTransition(isHiding));
-        
+
+        // heartbeat fade logic
+        if (heartbeatRoutine != null)
+            StopCoroutine(heartbeatRoutine);
+
+        heartbeatRoutine = StartCoroutine(FadeHeartbeat(isHiding));
     }
 
     private IEnumerator HideTransition(bool hide)
@@ -75,41 +90,71 @@ public class PlayerHidingSystem : MonoBehaviour
         float endAlpha = hide ? 0.8f : 0f;
 
         float time = 0f;
+
         sfxSource.PlayOneShot(hidingsfx);
+
         while (time < transitionDuration)
         {
             time += Time.deltaTime;
             float t = time / transitionDuration;
 
-            // camera move
             cameraTransform.localPosition = Vector3.Lerp(startPos, endPos, t);
 
-
             if (hideImage != null)
+            {
                 if (t <= transitionDuration)
                 {
-                    hideImage.color = new Color(baseColor.r, baseColor.g, baseColor.b, Mathf.Lerp(0f, 4f, t * 2f));
+                    hideImage.color = new Color(baseColor.r, baseColor.g, baseColor.b,
+                        Mathf.Lerp(0f, 4f, t * 2f));
                 }
                 else
                 {
-                    hideImage.color = new Color(baseColor.r, baseColor.g, baseColor.b, Mathf.Lerp(2f, 0f, t - transitionDuration));
+                    hideImage.color = new Color(baseColor.r, baseColor.g, baseColor.b,
+                        Mathf.Lerp(2f, 0f, t - transitionDuration));
                 }
-                
-            // fade vignette smoothly during transition
-            if (vignetteImage != null)
-                vignetteImage.color = new Color(baseColor.r, baseColor.g, baseColor.b, Mathf.Lerp(startAlpha, endAlpha, t));
+            }
 
+            if (vignetteImage != null)
+                vignetteImage.color = new Color(baseColor.r, baseColor.g, baseColor.b,
+                    Mathf.Lerp(startAlpha, endAlpha, t));
 
             yield return null;
         }
 
-
-        // ensure vignette ends at proper alpha
         if (vignetteImage != null)
             vignetteImage.color = new Color(baseColor.r, baseColor.g, baseColor.b, endAlpha);
-            
+
         if (hideImage != null)
             hideImage.color = new Color(baseColor.r, baseColor.g, baseColor.b, 0f);
+    }
 
+    // --- NEW: heartbeat fade coroutine ---
+    private IEnumerator FadeHeartbeat(bool fadeIn)
+    {
+        if (heartbeatSource == null || heartbeatClip == null)
+            yield break;
+
+        if (fadeIn)
+        {
+            if (!heartbeatSource.isPlaying)
+                heartbeatSource.Play();
+        }
+
+        float duration = 0.6f;
+        float time = 0f;
+        float start = heartbeatSource.volume;
+        float end = fadeIn ? 0.6f : 0f;
+
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            heartbeatSource.volume = Mathf.Lerp(start, end, time / duration);
+            yield return null;
+        }
+
+        heartbeatSource.volume = end;
+
+        if (!fadeIn)
+            heartbeatSource.Stop();
     }
 }
