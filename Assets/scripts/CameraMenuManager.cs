@@ -15,11 +15,17 @@ public class CameraMenuManager : MonoBehaviour
 
     private List<Room> rooms;
 
-    private Image cameraFeed;
+    private Image feed;
+    private Image overlay;
 
     private void Start()
     {
-        cameraFeed = cameraMenuUI.transform.Find("CameraFeed")?.GetComponent<Image>();
+        Transform cameraFeed = cameraMenuUI.transform.Find("CameraFeed");
+        if (cameraFeed)
+        {
+            feed = cameraFeed.Find("feed").GetComponent<Image>();
+            overlay = cameraFeed.Find("overlay").GetComponent<Image>();
+        }
         GameObject roomsParent = GameObject.Find("Rooms");
         if (roomsParent == null)
         {
@@ -40,7 +46,8 @@ public class CameraMenuManager : MonoBehaviour
     {
         if (cameraMenuUI.activeInHierarchy)
         {
-            cameraFeed.sprite = currentCamera.GetCurrentImage();
+            feed.sprite = currentCamera.GetCurrentImage();
+            overlay.sprite = currentCamera.GetOverlayImage();
         }
     }
     

@@ -166,6 +166,7 @@ public class GameManager : MonoBehaviour
             currentTime += Time.deltaTime;
             yield return null;
         }
+        dayStartTransitionBackground.color = new Color(1, 1, 1, 0);
 
     }
     
