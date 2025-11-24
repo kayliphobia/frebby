@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System;
 
 public class GlitchEffect : MonoBehaviour
 {
@@ -8,6 +9,14 @@ public class GlitchEffect : MonoBehaviour
     public float glitchDuration = 0.15f;
     public float fadeInSpeed = 0.1f;
     public float fadeOutSpeed = 0.15f;
+
+    public static Action GlitchEvent;
+
+
+    public void Start()
+    {
+        GlitchEvent += TriggerGlitch;
+    }
 
     public void TriggerGlitch()
     {

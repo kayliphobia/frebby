@@ -19,6 +19,8 @@ public class CameraMenuManager : MonoBehaviour
     private Image overlay;
     public Sprite transparentImage;
 
+    private Sprite oldFeed, oldOverlay;
+
 
 
     private void Start()
@@ -66,9 +68,15 @@ public class CameraMenuManager : MonoBehaviour
             {
                 overlay.sprite = transparentImage;
             }
-            
+            if (oldFeed && oldOverlay && (oldFeed != feed.sprite || oldOverlay != overlay.sprite))
+            {
+                GlitchEffect.GlitchEvent?.Invoke();
+                Debug.Log("asdf");
+            }
             // feed.sprite = currentCamera.GetCurrentImage() ?? transparentImage;
             // overlay.sprite = currentCamera.GetOverlayImage() ?? transparentImage;
+            oldFeed = feed.sprite;
+            oldOverlay = overlay.sprite;
         }
     }
     
