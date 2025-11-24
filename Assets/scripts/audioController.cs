@@ -43,4 +43,22 @@ public class AudioController : MonoBehaviour
             sfxSource.PlayOneShot(clip);
         }
     }
+
+    public void PauseAllSounds()
+    {
+        AudioSource[] sources = Object.FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
+        foreach (AudioSource src in sources)
+            src.Pause();
+    }
+
+
+    public void ResumeAllSounds()
+    {
+        AudioSource[] sources = Object.FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
+        foreach (AudioSource src in sources)
+            src.UnPause();
+    }
+
+
+
 }
