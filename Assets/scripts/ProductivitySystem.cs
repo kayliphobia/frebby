@@ -25,16 +25,23 @@ public class ProductivitySystem : MonoBehaviour
     [SerializeField] private AudioClip sfx;
     public MarionetteAI marionette;
 
+    // ==========================
+    // PARAGRAPH TYPING SYSTEM
+    // ==========================
 
-    private string[] fakePhrases = {
-        "Compiling report...", "Checking logs...", 
-        "Processing data...", "Updating files...", 
-        "Running diagnostics..."
+    [TextArea(3, 10)]
+    public string[] fakeParagraphs = {
+        "Compiling system logs and reconstructing fragmented task data...",
+        "Analyzing workstation processes and simulating productivity output...",
+        "Decrypting cached work buffers and validating computational integrity...",
+        "Processing archived reports and integrating cross-referenced metadata..."
     };
+
+    private string currentParagraph = "";
+    private int charIndex = 0;
 
     void Start()
     {
-        
         gameManager = FindFirstObjectByType<GameManager>();
 
         currentValue = maxValue;
@@ -52,11 +59,27 @@ public class ProductivitySystem : MonoBehaviour
         {
             if (Input.anyKeyDown && !IsMouseInput())
             {
+                // Add productivity
                 currentValue = Mathf.Min(maxValue, currentValue + 10f);
                 productivityBar.value = currentValue;
 
-                string phrase = fakePhrases[Random.Range(0, fakePhrases.Length)];
-                fakeTextOutput.text = phrase;
+                // TYPE ONE LETTER FROM CURRENT PARAGRAPH
+                if (charIndex < currentParagraph.Length)
+                {
+                    fakeTextOutput.text += currentParagraph[charIndex];
+                    charIndex++;
+                }
+                else
+                {
+                    // If the paragraph is finished, load a new one
+                    currentParagraph = fakeParagraphs[Random.Range(0, fakeParagraphs.Length)];
+                    fakeTextOutput.text = "";
+                    charIndex = 0;
+
+                    // Type the first letter instantly
+                    fakeTextOutput.text += currentParagraph[charIndex];
+                    charIndex++;
+                }
             }
         }
 
@@ -67,6 +90,7 @@ public class ProductivitySystem : MonoBehaviour
         }
     }
 
+
     void DepleteBar()
     {
         int day = gameManager != null ? gameManager.getCurrentDay() : 1;
@@ -74,6 +98,7 @@ public class ProductivitySystem : MonoBehaviour
         {
             return;
         }
+
         float scaledDepletion = baseDepletionRate * (1f + (day - 1) * dayMultiplier);
 
         currentValue -= scaledDepletion;
@@ -94,19 +119,32 @@ public class ProductivitySystem : MonoBehaviour
         }
     }
 
+
     bool IsMouseInput()
     {
         return Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2);
     }
 
+
     public void SetWindowActive(bool active)
     {
         windowActive = active;
-        if (!active && fakeTextOutput != null)
+
+        if (!active)
+        {
             fakeTextOutput.text = "";
+            return;
+        }
+
+        // When the window opens, start a new paragraph
+        currentParagraph = fakeParagraphs[Random.Range(0, fakeParagraphs.Length)];
+        charIndex = 0;
+        fakeTextOutput.text = "";
     }
 
-    public void ResetProductivity() {
+
+    public void ResetProductivity()
+    {
         currentValue = maxValue;
     }
 }
