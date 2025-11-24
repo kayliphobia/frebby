@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -39,6 +40,8 @@ public class GameManager : MonoBehaviour
     public int getCurrentDay() => currentDay;
     public int getCurrentHour() => currentHour;
 
+    public static Action ReturnToDesk;
+
     void Start()
     {
         UpdateUI();
@@ -70,14 +73,29 @@ public class GameManager : MonoBehaviour
 
     void InitializeDay(int day)
     {
-        // Basic example of AI scaling per day
-        // for (int i = 0; i < animatronicDifficulty.Length; i++)
-        // {
-        //     animatronicDifficulty[i] = Mathf.Clamp(day * baseDifficultyPerDay[i], 1, 20);
-        // }
+        GameManager.ReturnToDesk?.Invoke();
         if (day == 1)
         {
             subtitlePlayer.PlayWithSubtitles(voiceClip, subtitleFile);
+        }
+
+        if (day == 2)
+        {
+            GameObject leftAttackPos = GameObject.Find("LeftAttackPosition");
+
+            if (leftAttackPos)
+            {
+                Transform steveCubicleTransform = leftAttackPos.transform.Find("SteveCubicle");
+                if (steveCubicleTransform)
+                {
+                    Room room = steveCubicleTransform.GetComponent<Room>();
+                    if (room)
+                    {
+                        room.occupiedRoomImages[0] = room.occupiedRoomImages[1];
+                    }
+                }
+            }
+
         }
         FindFirstObjectByType<ProductivitySystem>()?.ResetProductivity();
 

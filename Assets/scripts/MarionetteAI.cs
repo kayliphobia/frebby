@@ -8,12 +8,10 @@ public class MarionetteAI : AI
     // [SerializeField] private Sprite marionetteSprite;       // Sprite to show on camera during attack
     [SerializeField] private float baseTravelTime = 6f;     // Base time to reach the office
 
-    private bool attacking = false;
 
     protected override void Start()
     {
         base.Start();
-        attacking = false;  // Make sure attack flag is reset
     }
 
     /// <summary>
@@ -21,8 +19,7 @@ public class MarionetteAI : AI
     /// </summary>
     public void OnProductivityDepleted()
     {
-        if (attacking) return;  // Prevent multiple attacks
-        attacking = true;
+        if (isAttacking) return;  // Prevent multiple attacks
         StartCoroutine(AttackRoutine());
     }
 
@@ -32,6 +29,7 @@ public class MarionetteAI : AI
     protected override IEnumerator AttackRoutine()
     {
         // Play attack sound
+        isAttacking = true;
         if (animatronicAudio != null && attackSound != null)
             animatronicAudio.PlayOneShot(attackSound);
 
@@ -48,6 +46,7 @@ public class MarionetteAI : AI
         currentRoom = nextRoom;
         currentRoom.Enter(this);
         TriggerJumpscare();
+        isAttacking = false;
     }
 
     // Override update functionality to stop the movement logic from happening

@@ -39,6 +39,8 @@ public class AI : MonoBehaviour
     public AudioClip footstepSound;
     public AudioClip attackSound;
 
+    public bool isAttacking;
+
     protected virtual void Start()
     {
         Debug.Log($"{aiName} has been created!");
@@ -50,13 +52,14 @@ public class AI : MonoBehaviour
             currentRoom.Enter(this);
 
         // UpdateRoomVisuals();
+        isAttacking = false;
     }
 
     protected virtual void Update()
     {
         // Debug.Log("updating");
         if (!isActive) return;
-
+        if (isAttacking) return;
         moveTimer -= Time.deltaTime;
         if (moveTimer <= 0f)
         {
@@ -110,7 +113,7 @@ public class AI : MonoBehaviour
         //     officeRenderer.enabled = true;
         //     officeRenderer.sprite = attackSprite;
         // }
-
+        isAttacking = true;
         yield return new WaitForSeconds(attackWarningTime);
         if (!playerHiding.IsHiding())
             TriggerJumpscare();
@@ -128,6 +131,7 @@ public class AI : MonoBehaviour
                 // UpdateRoomVisuals();
             }
         }
+        isAttacking = false;
     }
 
     protected void TriggerJumpscare()
@@ -135,6 +139,7 @@ public class AI : MonoBehaviour
         Debug.Log("Jumpscare triggered!");
         if (gameManager != null)
             gameManager.TriggerGameOver($"{aiName} entered the office");
+        GameManager.ReturnToDesk.Invoke();
     }
 
     public void Reset()
@@ -153,28 +158,4 @@ public class AI : MonoBehaviour
         moveTimer = graceTimer;
     }
 
-    // protected void UpdateRoomVisuals()
-    // {
-    //     if (currentRoom.roomName.Contains("Hallway"))
-    //     {
-    //         if (cameraSprite != null) cameraSprite.sprite = hallwaySprite;
-    //         if (officeRenderer != null) officeRenderer.enabled = false;
-    //     }
-    //     else if (currentRoom.roomName.Contains("AttackPosition"))
-    //     {
-    //         if (officeRenderer != null)
-    //         {
-    //             officeRenderer.enabled = true;
-    //             officeRenderer.sprite = attackSprite;
-    //         }
-    //     }
-    //     else if (currentRoom.roomName.Contains("Office"))
-    //     {
-    //         if (officeRenderer != null)
-    //         {
-    //             officeRenderer.enabled = true;
-    //             officeRenderer.sprite = officeSpriteImage;
-    //         }
-    //     }
-    // }
 }

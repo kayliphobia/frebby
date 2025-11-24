@@ -52,6 +52,13 @@ public class PlayerHidingSystem : MonoBehaviour
         }
 
         hideButton.onClick.AddListener(ToggleHide);
+        GameManager.ReturnToDesk += () =>
+        {
+            if (isHiding)
+            {
+                ToggleHide();
+            }
+        };
     }
 
     void Update()

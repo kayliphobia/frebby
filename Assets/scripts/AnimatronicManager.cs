@@ -6,6 +6,7 @@ public enum Animatronic
     Steve,
     Marionette,
     John,
+    Female
 }
 public class AnimatronicManager : MonoBehaviour
 {

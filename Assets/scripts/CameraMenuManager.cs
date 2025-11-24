@@ -17,6 +17,9 @@ public class CameraMenuManager : MonoBehaviour
 
     private Image feed;
     private Image overlay;
+    public Sprite transparentImage;
+
+
 
     private void Start()
     {
@@ -40,14 +43,32 @@ public class CameraMenuManager : MonoBehaviour
         // Get all Room components in descendants (including inactive)
         rooms = new List<Room>();
         rooms.AddRange(roomsParent.GetComponentsInChildren<Room>(true));
+        GameManager.ReturnToDesk += CloseCamera;
     }
 
     void Update()
     {
         if (cameraMenuUI.activeInHierarchy)
         {
-            feed.sprite = currentCamera.GetCurrentImage();
-            overlay.sprite = currentCamera.GetOverlayImage();
+            Sprite camImage = currentCamera.GetCurrentImage();
+            if (camImage)
+            {
+                feed.sprite = camImage;
+            } else
+            {
+                feed.sprite = transparentImage;
+            }
+            camImage = currentCamera.GetOverlayImage();
+            if (camImage)
+            {
+                overlay.sprite = camImage;
+            } else
+            {
+                overlay.sprite = transparentImage;
+            }
+            
+            // feed.sprite = currentCamera.GetCurrentImage() ?? transparentImage;
+            // overlay.sprite = currentCamera.GetOverlayImage() ?? transparentImage;
         }
     }
     

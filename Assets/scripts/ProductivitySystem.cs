@@ -11,7 +11,7 @@ public class ProductivitySystem : MonoBehaviour
     [Header("Settings")]
     public float depletionRate = 1f; // per tick
     public float tickRate = 0.05f;   // 50 ms
-    public float maxValue = 2000f;
+    public float maxValue = 2500;
 
     [Header("Debug")]
     public float currentValue;
