@@ -9983,7 +9983,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27a85e08132aa94199610308f9170c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimatronicManager
-  baseDifficultyPerDay: 02000000010000000200000002000000
+  baseDifficultyPerDay: 02000000010000000300000002000000
 --- !u!4 &2123959863
 Transform:
   m_ObjectHideFlags: 0
