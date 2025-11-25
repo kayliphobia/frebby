@@ -15,6 +15,10 @@ public class AudioController : MonoBehaviour
     [SerializeField] private float minDelay = 5f;
     [SerializeField] private float maxDelay = 12f;
 
+    [Header("plush")]
+    [SerializeField] private AudioSource plushSource;
+    [SerializeField] private AudioClip plushSound;
+
     private void Start()
     {
         // Start ambience
@@ -59,6 +63,9 @@ public class AudioController : MonoBehaviour
             src.UnPause();
     }
 
-
+    public void plushTrapSound()
+    {
+        plushSource.PlayOneShot(plushSound);
+    }
 
 }
