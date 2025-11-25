@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System;
 
 public class AudioController : MonoBehaviour
 {
@@ -19,6 +20,9 @@ public class AudioController : MonoBehaviour
     [SerializeField] private AudioSource plushSource;
     [SerializeField] private AudioClip plushSound;
 
+    public static Action PauseAudio; 
+    public static Action ResumeAudio;
+
     private void Start()
     {
         // Start ambience
@@ -32,6 +36,8 @@ public class AudioController : MonoBehaviour
         // Start random SFX loop
         if (randomClips.Length > 0)
             StartCoroutine(PlayRandomSounds());
+        PauseAudio += PauseAllSounds;
+        ResumeAudio += ResumeAllSounds;
     }
 
     private IEnumerator PlayRandomSounds()
@@ -39,18 +45,18 @@ public class AudioController : MonoBehaviour
         while (true)
         {
             // Wait a random amount of time
-            float delay = Random.Range(minDelay, maxDelay);
+            float delay = UnityEngine.Random.Range(minDelay, maxDelay);
             yield return new WaitForSeconds(delay);
 
             // Play a random clip
-            AudioClip clip = randomClips[Random.Range(0, randomClips.Length)];
+            AudioClip clip = randomClips[UnityEngine.Random.Range(0, randomClips.Length)];
             sfxSource.PlayOneShot(clip);
         }
     }
 
     public void PauseAllSounds()
     {
-        AudioSource[] sources = Object.FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
+        AudioSource[] sources = GameObject.FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
         foreach (AudioSource src in sources)
             src.Pause();
     }
@@ -58,7 +64,7 @@ public class AudioController : MonoBehaviour
 
     public void ResumeAllSounds()
     {
-        AudioSource[] sources = Object.FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
+        AudioSource[] sources = GameObject.FindObjectsByType<AudioSource>(FindObjectsSortMode.None);
         foreach (AudioSource src in sources)
             src.UnPause();
     }

@@ -287,18 +287,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   timeText: {fileID: 620244371}
   dayText: {fileID: 862942492}
-  shiftCompleteUI: {fileID: 1080485923}
   gameOverUI: {fileID: 0}
   dayStartTransitionBackground: {fileID: 933140671}
   dayStartTransitionBackgrounds:
   - {fileID: 1344172079330143534, guid: 27724f3c674207043907b1cc39bd5953, type: 3}
   - {fileID: 6493452754535608025, guid: 47d0fc87b07afd749a2516d0c4ac6245, type: 3}
   - {fileID: -996908360692164943, guid: 219a7ddd4210f4745ba1a680b0fe2eab, type: 3}
-  tutorialAudioSource: {fileID: 745333147}
-  tutorialAudio: {fileID: 8300000, guid: c18a4d5afb0ed624daf93eccc736252b, type: 3}
+  - {fileID: -2990832662572177714, guid: a4efb4cde18335c42a14f15faa245ba1, type: 3}
+  - {fileID: 4927476732253945769, guid: 9aad5dda77f59fc429315602a4ec001a, type: 3}
+  dayTransitionAudioSource: {fileID: 745333147}
+  gameWinSound: {fileID: 8300000, guid: ea626cfd05a01834992e42137f0cfc2b, type: 3}
   subtitlePlayer: {fileID: 308198209}
   voiceClip: {fileID: 8300000, guid: c18a4d5afb0ed624daf93eccc736252b, type: 3}
   subtitleFile: {fileID: 11400000, guid: 81d1e44c8ddfae44c95910a02308e901, type: 2}
+  dayEndAnimator: {fileID: 1540752155}
+  gameWin: {fileID: 1080485923}
 --- !u!4 &82868717
 Transform:
   m_ObjectHideFlags: 0
@@ -2121,7 +2124,6 @@ RectTransform:
   m_Children:
   - {fileID: 1841610152}
   - {fileID: 389439392}
-  - {fileID: 933140670}
   m_Father: {fileID: 2085396093}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -3811,7 +3813,7 @@ GameObject:
   - component: {fileID: 745333148}
   - component: {fileID: 745333147}
   m_Layer: 0
-  m_Name: TutorialAudio
+  m_Name: dayEndAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4911,12 +4913,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 477576607}
+  m_Father: {fileID: 2085396093}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.7609596, y: -0.39252853}
-  m_SizeDelta: {x: 789.65, y: 401.45}
+  m_AnchoredPosition: {x: 0.7609863, y: -0.3925171}
+  m_SizeDelta: {x: 0.95532227, y: 1.748291}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &933140671
 MonoBehaviour:
@@ -5262,7 +5264,7 @@ GameObject:
   - component: {fileID: 1080485926}
   - component: {fileID: 1080485925}
   m_Layer: 5
-  m_Name: Shift Complete UI
+  m_Name: GameWin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5300,14 +5302,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1540426309290004842, guid: 8bfecbece8912f3439a6da34297ee871, type: 3}
+  m_Sprite: {fileID: -5519761057961957205, guid: ac819ccec56b37546b5239b024f50cf9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6596,6 +6598,7 @@ GameObject:
   - component: {fileID: 1540752159}
   - component: {fileID: 1540752158}
   - component: {fileID: 1540752157}
+  - component: {fileID: 1540752160}
   m_Layer: 5
   m_Name: dayEnd
   m_TagString: Untagged
@@ -6634,7 +6637,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 7f0e98b37a2aa4a439e6bc97ee4141b7, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -6682,6 +6685,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1540752155}
   m_CullTransparentMesh: 1
+--- !u!114 &1540752160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1540752155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1097c05810fee6c47b0988d78517b174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DayEndResume
 --- !u!1 &1547645712
 GameObject:
   m_ObjectHideFlags: 0
@@ -9871,9 +9886,10 @@ RectTransform:
   - {fileID: 1834450639}
   - {fileID: 862942491}
   - {fileID: 620244369}
-  - {fileID: 1080485924}
   - {fileID: 477576607}
+  - {fileID: 933140670}
   - {fileID: 1833844914}
+  - {fileID: 1080485924}
   - {fileID: 1540752156}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

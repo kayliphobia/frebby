@@ -4,12 +4,13 @@ using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     [Header("Time Settings")]
     [SerializeField]
-    private const float secondsPerHour = 30f;   // how long each hour lasts in real time
+    private const float secondsPerHour = 15f;   // how long each hour lasts in real time
     private float hourTimer = 0f;
     private int currentHour = 9;
     private const int endHour = 17;             // 5PM
@@ -21,17 +22,15 @@ public class GameManager : MonoBehaviour
     [Header("UI References")]
     public TextMeshProUGUI timeText;
     public TextMeshProUGUI dayText;
-    public GameObject shiftCompleteUI;
     public GameObject gameOverUI;         // optional UI overlay for death screen
 
     [Header("Day Transition")]
     public Image dayStartTransitionBackground;
     public List<Sprite> dayStartTransitionBackgrounds;
 
-    public AudioSource tutorialAudioSource;
-    public AudioClip tutorialAudio;
+    public AudioSource dayTransitionAudioSource;
+    public AudioClip gameWinSound;
     private bool shiftActive = true;
-    private bool isGameOver = false;
 
     public SubtitlePlayer subtitlePlayer;
     public AudioClip voiceClip;
@@ -42,15 +41,23 @@ public class GameManager : MonoBehaviour
 
     public static Action ReturnToDesk;
 
+    public GameObject dayEndAnimator;
+
+    public GameObject gameWin;
+
+    public static bool gameOver;
+
     void Start()
     {
+        gameOver = false;
+        currentDay = SaveSystem.LoadDay();
         UpdateUI();
         InitializeDay(currentDay);
     }
 
     void Update()
     {
-        if (!shiftActive || isGameOver) return;
+        if (!shiftActive) return;
 
         hourTimer += Time.deltaTime;
 
@@ -79,7 +86,7 @@ public class GameManager : MonoBehaviour
             subtitlePlayer.PlayWithSubtitles(voiceClip, subtitleFile);
         }
 
-        if (day == 2)
+        if (day >= 2)
         {
             GameObject leftAttackPos = GameObject.Find("LeftAttackPosition");
 
@@ -109,28 +116,34 @@ public class GameManager : MonoBehaviour
 
     void EndShift()
     {
+        Time.timeScale = 0f;
+        AudioController.PauseAudio?.Invoke();
+        dayTransitionAudioSource.PlayOneShot(gameWinSound);
+        dayEndAnimator.SetActive(true);
+        dayEndAnimator.GetComponent<Animator>().SetTrigger("DayEndTrigger");
         shiftActive = false;
-        if (shiftCompleteUI != null)
-            shiftCompleteUI.SetActive(true);
         NextDay();
+        SaveSystem.SaveDay(currentDay);
     }
+
 
     public void NextDay()
     {
         currentDay++;
         if (currentDay > maxDays)
         {
+            gameOver = true;
+
             // Game complete or loop back
             currentDay = 1;
+            StartCoroutine(ShowWinScreen(10));
+            return;
         }
 
         // Reset shift
         currentHour = 9;
         hourTimer = 0f;
         shiftActive = true;
-        isGameOver = false;
-        if (shiftCompleteUI != null)
-            shiftCompleteUI.SetActive(false);
         if (gameOverUI != null)
             gameOverUI.SetActive(false);
 
@@ -162,20 +175,24 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void TriggerGameOver(string cause)
     {
-        if (isGameOver) return;
+        gameOver = true;
 
-        isGameOver = true;
         shiftActive = false;
 
         Debug.Log($"GAME OVER — Cause: {cause}");
 
-        // Optional freeze and show game over UI
-        Time.timeScale = 0f;
         if (gameOverUI != null)
             gameOverUI.SetActive(true);
+        gameOver = false;
+        SceneManager.LoadScene("Title");
+        
     }
 
     public IEnumerator BeginDayStartTransition(int duration) {
+        if (currentDay > maxDays)
+        {
+            yield break;
+        }
         dayStartTransitionBackground.sprite = dayStartTransitionBackgrounds[currentDay - 1];
         dayStartTransitionBackground.color = new Color(1, 1, 1, 1);
         float currentTime = 0;
@@ -186,6 +203,13 @@ public class GameManager : MonoBehaviour
         }
         dayStartTransitionBackground.color = new Color(1, 1, 1, 0);
 
+    }
+
+    public IEnumerator ShowWinScreen(int duration)
+    {
+        gameWin.SetActive(true);
+        yield return new WaitForSecondsRealtime(duration);
+        TriggerGameOver("YOU SURVIVED CORPORATE HELL");
     }
     
 }
