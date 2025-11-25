@@ -21,6 +21,9 @@ public class CameraMenuManager : MonoBehaviour
 
     private Sprite oldFeed, oldOverlay;
 
+    [Header("sound")]
+    [SerializeField] private AudioSource clickSource;
+    [SerializeField] private AudioClip clickSound;
 
 
     private void Start()
@@ -82,6 +85,7 @@ public class CameraMenuManager : MonoBehaviour
     
     public void OpenCamera()
     {
+        
         cameraMenuUI.SetActive(true);
         if (cameraPan != null)
             cameraPan.canPan = false; // lock panning
@@ -112,6 +116,7 @@ public class CameraMenuManager : MonoBehaviour
         } else
         {
             Debug.Log($"{clickedButton} was clicked");
+            clickSource.PlayOneShot(clickSound);
         }
         currentCamera = room;
     }
