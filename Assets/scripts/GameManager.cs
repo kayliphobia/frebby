@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private const float secondsPerHour = 30f;   // how long each hour lasts in real time
     private float hourTimer = 0f;
-    private int currentHour = 9;
+    private int currentHour = 16;
     private const int endHour = 17;             // 5PM
 
     [Header("Day Settings")]
@@ -28,8 +28,8 @@ public class GameManager : MonoBehaviour
     public Image dayStartTransitionBackground;
     public List<Sprite> dayStartTransitionBackgrounds;
 
-    public AudioSource tutorialAudioSource;
-    public AudioClip tutorialAudio;
+    public AudioSource dayTransitionAudioSource;
+    public AudioClip gameWinSound;
     private bool shiftActive = true;
     private bool isGameOver = false;
 
@@ -41,6 +41,9 @@ public class GameManager : MonoBehaviour
     public int getCurrentHour() => currentHour;
 
     public static Action ReturnToDesk;
+
+    public GameObject dayEndAnimator;
+
 
     void Start()
     {
@@ -109,11 +112,17 @@ public class GameManager : MonoBehaviour
 
     void EndShift()
     {
+        Time.timeScale = 0f;
+        AudioController.PauseAudio?.Invoke();
+        dayTransitionAudioSource.PlayOneShot(gameWinSound);
+        dayEndAnimator.SetActive(true);
+        dayEndAnimator.GetComponent<Animator>().SetTrigger("DayEndTrigger");
         shiftActive = false;
         if (shiftCompleteUI != null)
             shiftCompleteUI.SetActive(true);
         NextDay();
     }
+
 
     public void NextDay()
     {
