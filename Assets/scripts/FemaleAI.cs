@@ -8,6 +8,7 @@ public class FemaleAI : AI
     {
         if (gameManager.getCurrentDay() < 2)
         {
+            Debug.Log($"Called by {aiName}");
             AILevel = 0;
         }
         base.Update();
