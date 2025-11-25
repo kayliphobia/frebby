@@ -114,7 +114,9 @@ public class AI : MonoBehaviour
         //     officeRenderer.sprite = attackSprite;
         // }
         isAttacking = true;
-        yield return new WaitForSeconds(attackWarningTime);
+        float currentWaitTime = Mathf.Clamp(attackWarningTime - (attackWarningTime - 1) * AILevel / 20, 1f, float.MaxValue);
+        Debug.Log($"I\'m giving you {currentWaitTime} seconds to hide! 1...");
+        yield return new WaitForSeconds(currentWaitTime);
         if (!playerHiding.IsHiding())
             TriggerJumpscare();
         else

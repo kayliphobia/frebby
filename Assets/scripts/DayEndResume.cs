@@ -5,10 +5,14 @@ using System.Collections;
 public class DayEndResume : MonoBehaviour
 {
     public void Resume()
-    {
+    {   
+        gameObject.SetActive(false);
+        if (GameManager.gameOver)
+        {
+            return;
+        }
         Time.timeScale = 1f;
         AudioController.ResumeAudio?.Invoke();
-        gameObject.SetActive(false);
         Debug.Log("everything resumed");
     }
 }
