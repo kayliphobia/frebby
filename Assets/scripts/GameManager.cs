@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private const float secondsPerHour = 30f;   // how long each hour lasts in real time
     private float hourTimer = 0f;
-    private int currentHour = 9;
+    private int currentHour = 16;
     private const int endHour = 17;             // 5PM
 
     [Header("Day Settings")]
@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour
             }
 
         }
-        FindFirstObjectByType<ProductivitySystem>()?.ResetProductivity();
+        FindFirstObjectByType<ProductivitySystem>(FindObjectsInactive.Include)?.ResetProductivity();
 
         UpdateUI();
         AI[] animatronics = FindObjectsByType<AI>(FindObjectsSortMode.None);
