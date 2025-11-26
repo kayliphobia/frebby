@@ -767,7 +767,7 @@ MonoBehaviour:
   currentRoom: {fileID: 0}
   AILevel: 0
   animatronicAudio: {fileID: 113467233}
-  footStepVolumePercentage: 57.5
+  footStepVolumePercentage: 45
   footstepSound: {fileID: 8300000, guid: d3e273fad18f56241afab1c6665cb94a, type: 3}
   attackSoundVolumePercentage: 35
   attackSound: {fileID: 8300000, guid: 3090f44a3df6bbe45a56311e88a98bc0, type: 3}
@@ -3872,7 +3872,7 @@ MonoBehaviour:
   animatronicAudio: {fileID: 1907241413}
   footStepVolumePercentage: 100
   footstepSound: {fileID: 8300000, guid: 28840ba2f507fc849a20d1ba5468bbda, type: 3}
-  attackSoundVolumePercentage: 35
+  attackSoundVolumePercentage: 25
   attackSound: {fileID: 8300000, guid: f178219536de3b243ad8bd57e23115e8, type: 3}
   warningSoundVolumePercentage: 10
   warningSound: {fileID: 8300000, guid: c54553d1a2b366e4db7084da5ced2a2a, type: 3}
@@ -10048,7 +10048,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27a85e08132aa94199610308f9170c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimatronicManager
-  baseDifficultyPerDay: 02000000010000000200000003000000
+  baseDifficultyPerDay: 02000000010000000200000002000000
 --- !u!4 &2123959863
 Transform:
   m_ObjectHideFlags: 0
