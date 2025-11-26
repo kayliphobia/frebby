@@ -15,6 +15,8 @@ public class Room : MonoBehaviour
     public SpriteRenderer backgroundRenderer;
     [HideInInspector]
     public string roomName;
+
+    [SerializeField]
     protected List<Room> connectedRooms;
 
     [Tooltip("Higher means more likely an AI will move here")]
@@ -85,26 +87,37 @@ public class Room : MonoBehaviour
     public Room GetWeightedConnectedRoom()
     {
         List<Room> available = connectedRooms.FindAll(r => !r.IsOccupied());
-        if (available.Count == 0)
-            return null;
+        if (available.Count == 0) return null;
 
-        float maxWeight = 0f;
-        Room maxWeightRoom = available[0];
-        foreach (var room in available)
+        // Shuffle the available rooms to randomize order
+        for (int i = 0; i < available.Count; i++)
         {
-            maxWeight = System.Math.Max(room.officeBias, maxWeight);
-            maxWeightRoom = room;    
+            int j = Random.Range(i, available.Count);
+            Room temp = available[i];
+            available[i] = available[j];
+            available[j] = temp;
         }
 
+        // Weighted random selection
+        float totalWeight = 0f;
+        foreach (var room in available)
+            totalWeight += room.officeBias;
 
-        float rand = Random.Range(0f, maxWeight + 1);
+        float rand = Random.Range(0f, totalWeight);
+
         foreach (var room in available)
         {
             if (rand < room.officeBias)
                 return room;
+            rand -= room.officeBias;
         }
 
-        
-        return maxWeightRoom;
+        return available[available.Count - 1]; // fallback
     }
+
+    public Room GetParentRoom()
+    {
+        return connectedRooms[0];
+    }
+
 }

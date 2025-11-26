@@ -52,13 +52,7 @@ public class PlayerHidingSystem : MonoBehaviour
         }
 
         hideButton.onClick.AddListener(ToggleHide);
-        GameManager.ReturnToDesk += () =>
-        {
-            if (isHiding)
-            {
-                ToggleHide();
-            }
-        };
+        GameManager.ReturnToDesk += OnReturnToDesk;
     }
 
     void Update()
@@ -74,6 +68,10 @@ public class PlayerHidingSystem : MonoBehaviour
 
     private void ToggleHide()
     {
+        if (GameManager.gameOver) 
+        {
+            return;
+        }
         isHiding = !isHiding;
 
         if (transitionRoutine != null)
@@ -163,5 +161,17 @@ public class PlayerHidingSystem : MonoBehaviour
 
         if (!fadeIn)
             heartbeatSource.Stop();
+    }
+
+    public void OnReturnToDesk(){
+        if (isHiding)
+        {
+            ToggleHide();
+        }
+    }
+
+    public void OnDestroy()
+    {
+        GameManager.ReturnToDesk -= OnReturnToDesk;
     }
 }

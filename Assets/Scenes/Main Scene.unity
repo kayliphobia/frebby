@@ -255,6 +255,111 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9092364}
   m_CullTransparentMesh: 1
+--- !u!1 &25528744
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 25528745}
+  - component: {fileID: 25528749}
+  - component: {fileID: 25528748}
+  - component: {fileID: 25528747}
+  - component: {fileID: 25528746}
+  m_Layer: 5
+  m_Name: JumpscareBackground
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &25528745
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 25528744}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2085396093}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.0005006852, y: -249.91043}
+  m_SizeDelta: {x: 888.57, y: 499.82}
+  m_Pivot: {x: 0.5, y: 0}
+--- !u!114 &25528746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 25528744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98731cf0b80b3dc428d2ab6a96106585, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JumpscareAnimation
+  duration: 0.2
+  holdDuration: 2
+  Jumpscare: {fileID: 1338152350}
+  finalScale: 1.2
+--- !u!114 &25528747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 25528744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1097c05810fee6c47b0988d78517b174, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DayEndResume
+--- !u!114 &25528748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 25528744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: -3209833726738011397, guid: 4100b411744ea224abe3ff13921e99f9, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &25528749
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 25528744}
+  m_CullTransparentMesh: 1
 --- !u!1 &82868715
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,7 +707,8 @@ MonoBehaviour:
   - {fileID: -5484879344310603407, guid: 6a255e1ded8eb79449d82427bd3c2f2a, type: 3}
   backgroundRenderer: {fileID: 0}
   roomName: 
-  officeBias: 85
+  connectedRooms: []
+  officeBias: 40
   occupant: {fileID: 0}
 --- !u!1 &187610437
 GameObject:
@@ -651,17 +757,24 @@ MonoBehaviour:
   playerHiding: {fileID: 82868718}
   gameManager: {fileID: 82868716}
   animatronicManager: {fileID: 2123959862}
-  baseMoveDelay: 3.5
+  baseMoveDelay: 2.15
   officeStayTime: 2
   attackWarningTime: 3
+  baseAttackLingerTime: 2
   aiName: 3
-  graceTimer: 5
+  graceTimer: 2
   startRoom: {fileID: 1746774935}
   currentRoom: {fileID: 0}
   AILevel: 0
   animatronicAudio: {fileID: 113467233}
+  footStepVolumePercentage: 57.5
   footstepSound: {fileID: 8300000, guid: d3e273fad18f56241afab1c6665cb94a, type: 3}
-  attackSound: {fileID: 8300000, guid: 49f62e8e6de620b4a9be4f55c4676a08, type: 3}
+  attackSoundVolumePercentage: 50
+  attackSound: {fileID: 8300000, guid: 3090f44a3df6bbe45a56311e88a98bc0, type: 3}
+  warningSoundVolumePercentage: 50
+  warningSound: {fileID: 0}
+  firedSoundVolumePercentage: 100
+  firedSound: {fileID: 8300000, guid: 61208bd5693680348a9dd54f0da4e956, type: 3}
   isAttacking: 0
 --- !u!1 &205936642
 GameObject:
@@ -752,7 +865,8 @@ MonoBehaviour:
   - {fileID: -2491613258816561493, guid: 75dd1d097f0eab24fad4ac3e7fe74783, type: 3}
   backgroundRenderer: {fileID: 0}
   roomName: 
-  officeBias: 1
+  connectedRooms: []
+  officeBias: 2
   occupant: {fileID: 0}
 --- !u!1 &232977177
 GameObject:
@@ -807,6 +921,7 @@ MonoBehaviour:
   - {fileID: -6113085763487158708, guid: 43de0b9da8aa7794eabe9ff75739bd7d, type: 3}
   backgroundRenderer: {fileID: 0}
   roomName: 
+  connectedRooms: []
   officeBias: 1
   occupant: {fileID: 0}
 --- !u!1 &235505054
@@ -1050,7 +1165,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1cbcb18a3967f9c4a8b9d5e507615178, type: 3}
   backgroundRenderer: {fileID: 0}
   roomName: 
-  officeBias: 90
+  connectedRooms: []
+  officeBias: 400
   occupant: {fileID: 0}
 --- !u!1 &343887286
 GameObject:
@@ -1416,7 +1532,7 @@ MonoBehaviour:
   currentValue: 0
   windowActive: 0
   baseDepletionRate: 1
-  dayMultiplier: 0.3
+  dayMultiplier: 0.4
   sfxSource: {fileID: 1848310683}
   sfx: {fileID: 8300000, guid: c54553d1a2b366e4db7084da5ced2a2a, type: 3}
   marionette: {fileID: 612339631}
@@ -2881,14 +2997,21 @@ MonoBehaviour:
   baseMoveDelay: 1
   officeStayTime: 1
   attackWarningTime: 1
+  baseAttackLingerTime: 1
   aiName: 1
   graceTimer: 5
   startRoom: {fileID: 1059454369}
   currentRoom: {fileID: 0}
   AILevel: 0
   animatronicAudio: {fileID: 351454767}
+  footStepVolumePercentage: 57.5
   footstepSound: {fileID: 0}
+  attackSoundVolumePercentage: 100
   attackSound: {fileID: 8300000, guid: f6b3db8d884d3e54ca8d653dcffe4cf0, type: 3}
+  warningSoundVolumePercentage: 100
+  warningSound: {fileID: 0}
+  firedSoundVolumePercentage: 100
+  firedSound: {fileID: 8300000, guid: 61208bd5693680348a9dd54f0da4e956, type: 3}
   isAttacking: 0
   baseTravelTime: 6
 --- !u!1 &619394800
@@ -3405,14 +3528,21 @@ MonoBehaviour:
   baseMoveDelay: 5
   officeStayTime: 3
   attackWarningTime: 4
+  baseAttackLingerTime: 2
   aiName: 0
   graceTimer: 5
   startRoom: {fileID: 1037729884}
   currentRoom: {fileID: 0}
   AILevel: 0
   animatronicAudio: {fileID: 1007772115}
+  footStepVolumePercentage: 57.5
   footstepSound: {fileID: 8300000, guid: a39024e04f041114eba1361b6536374c, type: 3}
-  attackSound: {fileID: 0}
+  attackSoundVolumePercentage: 100
+  attackSound: {fileID: 8300000, guid: a1b53155658793244a5dce4dfc349fb1, type: 3}
+  warningSoundVolumePercentage: 100
+  warningSound: {fileID: 8300000, guid: 20c940925fdd6b44080f9dfcaa9d49e3, type: 3}
+  firedSoundVolumePercentage: 100
+  firedSound: {fileID: 8300000, guid: 61208bd5693680348a9dd54f0da4e956, type: 3}
   isAttacking: 0
 --- !u!4 &649344646
 Transform:
@@ -3734,17 +3864,24 @@ MonoBehaviour:
   playerHiding: {fileID: 82868718}
   gameManager: {fileID: 82868716}
   animatronicManager: {fileID: 2123959862}
-  baseMoveDelay: 4
+  baseMoveDelay: 3
   officeStayTime: 2
-  attackWarningTime: 3
+  attackWarningTime: 2
+  baseAttackLingerTime: 2
   aiName: 2
-  graceTimer: 5
+  graceTimer: 1
   startRoom: {fileID: 1770948910}
   currentRoom: {fileID: 0}
   AILevel: 0
   animatronicAudio: {fileID: 1907241413}
+  footStepVolumePercentage: 57.5
   footstepSound: {fileID: 8300000, guid: 28840ba2f507fc849a20d1ba5468bbda, type: 3}
-  attackSound: {fileID: 8300000, guid: 0a80e58a31ddc3e45817b6aee98ef693, type: 3}
+  attackSoundVolumePercentage: 50
+  attackSound: {fileID: 8300000, guid: f178219536de3b243ad8bd57e23115e8, type: 3}
+  warningSoundVolumePercentage: 50
+  warningSound: {fileID: 0}
+  firedSoundVolumePercentage: 100
+  firedSound: {fileID: 8300000, guid: 61208bd5693680348a9dd54f0da4e956, type: 3}
   isAttacking: 0
 --- !u!1 &664533210
 GameObject:
@@ -3800,7 +3937,8 @@ MonoBehaviour:
   - {fileID: 6973692770720309665, guid: 417807472124a4f40b588304b00bdea0, type: 3}
   backgroundRenderer: {fileID: 0}
   roomName: 
-  officeBias: 70
+  connectedRooms: []
+  officeBias: 9
   occupant: {fileID: 0}
 --- !u!1 &745333146
 GameObject:
@@ -5011,7 +5149,8 @@ MonoBehaviour:
   - {fileID: 6226001017832797831, guid: b3c63b73505f3e149b778c07d1f94150, type: 3}
   backgroundRenderer: {fileID: 0}
   roomName: 
-  officeBias: 75
+  connectedRooms: []
+  officeBias: 1
   occupant: {fileID: 0}
 --- !u!1 &1007772114
 GameObject:
@@ -5195,6 +5334,7 @@ MonoBehaviour:
   - {fileID: -1540426309290004842, guid: 8bfecbece8912f3439a6da34297ee871, type: 3}
   backgroundRenderer: {fileID: 0}
   roomName: 
+  connectedRooms: []
   officeBias: 1
   occupant: {fileID: 0}
 --- !u!1 &1059454367
@@ -5227,7 +5367,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1959981170}
+  m_Father: {fileID: 1338152349}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1059454369
 MonoBehaviour:
@@ -5250,6 +5390,7 @@ MonoBehaviour:
   - {fileID: -1540426309290004842, guid: 8bfecbece8912f3439a6da34297ee871, type: 3}
   backgroundRenderer: {fileID: 0}
   roomName: 
+  connectedRooms: []
   officeBias: 1
   occupant: {fileID: 0}
 --- !u!1 &1080485923
@@ -5380,6 +5521,7 @@ MonoBehaviour:
   - {fileID: -5122543762662092728, guid: 8cc20259905ff974baced0f1747a8207, type: 3}
   backgroundRenderer: {fileID: 0}
   roomName: 
+  connectedRooms: []
   officeBias: 1
   occupant: {fileID: 0}
 --- !u!1 &1113281533
@@ -5885,6 +6027,64 @@ Transform:
   - {fileID: 612339630}
   m_Father: {fileID: 645025207}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1338152348
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1338152349}
+  - component: {fileID: 1338152350}
+  m_Layer: 5
+  m_Name: Jumpscare
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1338152349
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338152348}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1959981170}
+  - {fileID: 1059454368}
+  m_Father: {fileID: 1616039773}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1338152350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1338152348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18d166c8807509543ae0eefcb27a575c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Room
+  emptyRoomImage: {fileID: -3209833726738011397, guid: 4100b411744ea224abe3ff13921e99f9, type: 3}
+  connectedRoom: {fileID: 0}
+  occupiedRoomImages:
+  - {fileID: 21300000, guid: 87338b9667f4b9e46b3cefeedb2a4726, type: 3}
+  - {fileID: 21300000, guid: be7e7f30d8f1bd64abf8dfd4c3230a69, type: 3}
+  - {fileID: 21300000, guid: eae32ce735570974f96266d918b86e3a, type: 3}
+  - {fileID: 21300000, guid: 04763cbed1cef5b4d9fb6b66b2845b08, type: 3}
+  backgroundRenderer: {fileID: 0}
+  roomName: 
+  connectedRooms: []
+  officeBias: 1
+  occupant: {fileID: 0}
 --- !u!1 &1342123035
 GameObject:
   m_ObjectHideFlags: 0
@@ -6584,7 +6784,8 @@ MonoBehaviour:
   - {fileID: 6532645657667075140, guid: c5b1f643ca2fa2748af744eb60d64291, type: 3}
   backgroundRenderer: {fileID: 0}
   roomName: 
-  officeBias: 85
+  connectedRooms: []
+  officeBias: 9
   occupant: {fileID: 0}
 --- !u!1 &1540752155
 GameObject:
@@ -7292,7 +7493,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1959981170}
+  - {fileID: 1338152349}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1669322034
@@ -7470,6 +7671,7 @@ MonoBehaviour:
   - {fileID: 0}
   backgroundRenderer: {fileID: 1843672298}
   roomName: 
+  connectedRooms: []
   officeBias: 1
   occupant: {fileID: 0}
 --- !u!1 &1709626199
@@ -7857,7 +8059,8 @@ MonoBehaviour:
   - {fileID: 4908305058642085811, guid: 9e76a88e050fe55488b382c207d3f9f0, type: 3}
   backgroundRenderer: {fileID: 0}
   roomName: 
-  officeBias: 75
+  connectedRooms: []
+  officeBias: 1
   occupant: {fileID: 0}
 --- !u!1 &1750338646
 GameObject:
@@ -8180,7 +8383,8 @@ MonoBehaviour:
   - {fileID: 2669926810328648333, guid: 2dc2d60b655bc144ba8b9e93ac51a314, type: 3}
   backgroundRenderer: {fileID: 0}
   roomName: 
-  officeBias: 65
+  connectedRooms: []
+  officeBias: 1
   occupant: {fileID: 0}
 --- !u!1 &1786362609
 GameObject:
@@ -9386,15 +9590,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1959981169}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1059454368}
   - {fileID: 1688866814}
   - {fileID: 2090497567}
-  m_Father: {fileID: 1616039773}
+  m_Father: {fileID: 1338152349}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1959981171
 MonoBehaviour:
@@ -9412,18 +9615,19 @@ MonoBehaviour:
   connectedRoom: {fileID: 0}
   occupiedRoomImages:
   - {fileID: 5701455216585337717, guid: c9553c944ac10a04eba5ef68a5a10e44, type: 3}
-  - {fileID: -5386390512823441331, guid: 03f78d4c6b5bff04386390871ab0736b, type: 3}
+  - {fileID: -3209833726738011397, guid: 4100b411744ea224abe3ff13921e99f9, type: 3}
   - {fileID: 3498430746599570222, guid: 7df4b3dba64863049a310f1fcae91087, type: 3}
   - {fileID: -5883025480988506720, guid: cd6eb4c21d5a41b488dda83f19c1dd6b, type: 3}
   backgroundRenderer: {fileID: 1598927510}
   roomName: 
-  officeBias: 100
+  connectedRooms: []
+  officeBias: 100000
   occupant: {fileID: 0}
   retreatRooms:
   - {fileID: 1037729884}
   - {fileID: 0}
   - {fileID: 1098911809}
-  - {fileID: 218650452}
+  - {fileID: 232977179}
 --- !u!1 &1976014931
 GameObject:
   m_ObjectHideFlags: 0
@@ -9480,7 +9684,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7abc388482816e54d9cc7625d04e9ee0, type: 3}
   backgroundRenderer: {fileID: 0}
   roomName: 
-  officeBias: 80
+  connectedRooms: []
+  officeBias: 9
   occupant: {fileID: 0}
 --- !u!1 &1992122969
 GameObject:
@@ -9891,6 +10096,7 @@ RectTransform:
   - {fileID: 1833844914}
   - {fileID: 1080485924}
   - {fileID: 1540752156}
+  - {fileID: 25528745}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -9952,7 +10158,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 605a94e8bd6c39b43b01615e705c6a45, type: 3}
   backgroundRenderer: {fileID: 929662680}
   roomName: 
-  officeBias: 95
+  connectedRooms: []
+  officeBias: 1000
   occupant: {fileID: 0}
 --- !u!1 &2123959861
 GameObject:
@@ -9983,7 +10190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27a85e08132aa94199610308f9170c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimatronicManager
-  baseDifficultyPerDay: 02000000010000000300000002000000
+  baseDifficultyPerDay: 02000000010000000200000003000000
 --- !u!4 &2123959863
 Transform:
   m_ObjectHideFlags: 0

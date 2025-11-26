@@ -74,4 +74,9 @@ public class AudioController : MonoBehaviour
         plushSource.PlayOneShot(plushSound);
     }
 
+    public void OnDestroy(){
+        PauseAudio -= PauseAllSounds;
+        ResumeAudio -= ResumeAllSounds;
+    }
+
 }

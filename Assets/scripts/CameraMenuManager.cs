@@ -74,10 +74,7 @@ public class CameraMenuManager : MonoBehaviour
             if (oldFeed && oldOverlay && (oldFeed != feed.sprite || oldOverlay != overlay.sprite))
             {
                 GlitchEffect.GlitchEvent?.Invoke();
-                Debug.Log("asdf");
             }
-            // feed.sprite = currentCamera.GetCurrentImage() ?? transparentImage;
-            // overlay.sprite = currentCamera.GetOverlayImage() ?? transparentImage;
             oldFeed = feed.sprite;
             oldOverlay = overlay.sprite;
         }
@@ -96,13 +93,13 @@ public class CameraMenuManager : MonoBehaviour
 
     public void CloseCamera()
     {
-        cameraMenuUI.SetActive(false);
-        productivityUI.SetActive(false);
-        if (cameraPan != null)
-            cameraPan.canPan = true; // unlock panning
+    if (cameraMenuUI != null) cameraMenuUI.SetActive(false);
+    if (productivityUI != null) productivityUI.SetActive(false);
+    if (cameraPan != null)
+        cameraPan.canPan = true; // unlock panning
 
-        if (computerCollider != null)
-            computerCollider.enabled = true;
+    if (computerCollider != null)
+        computerCollider.enabled = true;
     }
 
     public void CameraButtonClick()
@@ -120,4 +117,14 @@ public class CameraMenuManager : MonoBehaviour
         }
         currentCamera = room;
     }
+
+    void OnDestroy()
+    {
+        // Unsubscribe from static events
+        GameManager.ReturnToDesk -= CloseCamera;
+
+        // Stop any running coroutines
+        StopAllCoroutines();
+    }
+
 }

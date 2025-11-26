@@ -41,12 +41,10 @@ public class MarionetteAI : AI
         float travelTime = Mathf.Clamp(baseTravelTime - AILevel * 0.5f, 2f, baseTravelTime);
         yield return new WaitForSeconds(travelTime);
 
-        Room nextRoom = currentRoom.GetWeightedConnectedRoom();
         currentRoom.Leave(this);
-        currentRoom = nextRoom;
+        currentRoom = currentRoom.GetParentRoom();
         currentRoom.Enter(this);
-        TriggerJumpscare();
-        isAttacking = false;
+        yield return StartCoroutine(TriggerJumpscare());
     }
 
     // Override update functionality to stop the movement logic from happening

@@ -51,4 +51,9 @@ public class GlitchEffect : MonoBehaviour
             yield return null;
         }
     }
+
+    void OnDestroy()
+    {
+        GlitchEvent -= TriggerGlitch;
+    }
 }

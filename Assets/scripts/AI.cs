@@ -6,28 +6,20 @@ public class AI : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] protected PlayerHidingSystem playerHiding;
-    // [SerializeField] protected Image cameraSprite;            
-    // [SerializeField] protected SpriteRenderer officeRenderer; 
     [SerializeField] protected GameManager gameManager;
     [SerializeField] protected AnimatronicManager animatronicManager;
-
-    // [Header("Sprites")]
-    // [SerializeField] protected Sprite hallwaySprite;
-    // [SerializeField] protected Sprite attackSprite;
-    // [SerializeField] protected Sprite officeSpriteImage;
 
     [Header("Settings")]
     [SerializeField] protected float baseMoveDelay = 3f;
     [SerializeField] protected float officeStayTime = 2f;
     [SerializeField] protected float attackWarningTime = 1f;
+    [SerializeField] protected float baseAttackLingerTime = 1f;
     [SerializeField] protected Animatronic aiName;
     [SerializeField] protected float graceTimer = 5f;
 
     [Header("Room System")]
     public Room startRoom;
-    [SerializeField]
-    protected Room currentRoom;
-
+    [SerializeField] protected Room currentRoom;
 
     public int AILevel;
     protected float moveTimer;
@@ -36,8 +28,18 @@ public class AI : MonoBehaviour
     public Animatronic GetAIName() => aiName;
 
     public AudioSource animatronicAudio;
+
+    public float footStepVolumePercentage = 57.5f;
     public AudioClip footstepSound;
+
+    public float attackSoundVolumePercentage = 100f;
     public AudioClip attackSound;
+
+    public float warningSoundVolumePercentage = 100f;
+    public AudioClip warningSound;
+
+    public float firedSoundVolumePercentage = 100f;
+    public AudioClip firedSound;
 
     public bool isAttacking;
 
@@ -51,19 +53,17 @@ public class AI : MonoBehaviour
         if (currentRoom != null)
             currentRoom.Enter(this);
 
-        // UpdateRoomVisuals();
         isAttacking = false;
     }
 
     protected virtual void Update()
     {
-        // Debug.Log("updating");
         if (!isActive) return;
         if (isAttacking) return;
+
         moveTimer -= Time.deltaTime;
         if (moveTimer <= 0f)
         {
-            Debug.Log("Trying to move");
             AttemptMovement();
             moveTimer = baseMoveDelay;
         }
@@ -75,10 +75,6 @@ public class AI : MonoBehaviour
         if (AILevel >= randomRoll)
         {
             AdvanceRoom();
-        } else
-        {
-            Debug.Log("Move failed");
-            
         }
     }
 
@@ -93,71 +89,113 @@ public class AI : MonoBehaviour
             currentRoom = nextRoom;
             currentRoom.Enter(this);
 
-            // UpdateRoomVisuals();
+            if (currentRoom.roomName.Contains("AttackPosition"))
+            {
+                animatronicAudio.volume = warningSoundVolumePercentage / 100;
+                animatronicAudio.PlayOneShot(warningSound);
+            }
+                
 
             if (currentRoom.roomName.Contains("Office"))
                 StartCoroutine(AttackRoutine());
         }
-        else
-        {
-            Debug.Log($"{aiName} could not move, waiting in {currentRoom.roomName}");
-        }
     }
 
     protected virtual IEnumerator AttackRoutine()
-    {   
+    {
+        animatronicAudio.volume = attackSoundVolumePercentage / 100;
+        animatronicAudio.PlayOneShot(attackSound);
         if (currentRoom == null || playerHiding == null) yield break;
 
-        // if (officeRenderer != null)
-        // {
-        //     officeRenderer.enabled = true;
-        //     officeRenderer.sprite = attackSprite;
-        // }
         isAttacking = true;
-        float currentWaitTime = Mathf.Clamp(attackWarningTime - (attackWarningTime - 1) * AILevel / 20, 1f, float.MaxValue);
-        Debug.Log($"I\'m giving you {currentWaitTime} seconds to hide! 1...");
+
+        float currentWaitTime = Mathf.Clamp(
+            attackWarningTime - (attackWarningTime - 1.5f) * AILevel / 20f,
+            1f,
+            float.MaxValue
+        );
+
         yield return new WaitForSeconds(currentWaitTime);
-        if (!playerHiding.IsHiding())
-            TriggerJumpscare();
-        else
+
+        float timer = 0;
+        float attackLingerTime = baseAttackLingerTime + 6 * (AILevel / 20);
+        while (timer < attackLingerTime)
         {
-            // Retreat to previous or connected room if available
-            Room retreatRoom = ((Office) currentRoom).GetWeightedConnectedRoom();
-            if (retreatRoom != null)
+            if (!playerHiding.IsHiding())
             {
+                // >>> Call the new coroutine version
                 currentRoom.Leave(this);
-                currentRoom = retreatRoom;
-                animatronicAudio.PlayOneShot(footstepSound);
+                currentRoom = currentRoom.GetParentRoom();
                 currentRoom.Enter(this);
-                moveTimer = graceTimer;
-                // UpdateRoomVisuals();
+                yield return StartCoroutine(TriggerJumpscare());
             }
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        // retreat
+        Room retreatRoom = ((Office)currentRoom).GetWeightedConnectedRoom();
+        if (retreatRoom != null)
+        {
+            currentRoom.Leave(this);
+            currentRoom = retreatRoom;
+            animatronicAudio.volume = footStepVolumePercentage / 100;
+            animatronicAudio.PlayOneShot(footstepSound);
+            currentRoom.Enter(this);
+            moveTimer = graceTimer;
         }
         isAttacking = false;
     }
 
-    protected void TriggerJumpscare()
+    // ================================
+    //       UPDATED JUMPSCARE CODE
+    // ================================
+    protected IEnumerator TriggerJumpscare()
     {
+        GameManager.gameOver = true;
+
+        AudioController.PauseAudio?.Invoke();
+
         Debug.Log("Jumpscare triggered!");
+
+        // 1. Immediately return to desk
+        GameManager.ReturnToDesk.Invoke();
+
+        // 2. Wait 1 frame so the desk loads
+        yield return null;
+
+        animatronicAudio.volume = firedSoundVolumePercentage / 100;
+        animatronicAudio.PlayOneShot(firedSound);
+        // 3. Play the jumpscare animation on desk
+        JumpscareAnimation jumpscareAnimation = FindFirstObjectByType<JumpscareAnimation>(FindObjectsInactive.Include);
+
+        if (jumpscareAnimation != null)
+        {
+            jumpscareAnimation.Play();
+            yield return new WaitForSeconds(jumpscareAnimation.duration + jumpscareAnimation.holdDuration);
+        }
+
+        // 4. Now trigger game over
         if (gameManager != null)
             gameManager.TriggerGameOver($"{aiName} entered the office");
-        GameManager.ReturnToDesk.Invoke();
     }
 
     public void Reset()
-    { 
+    {
         Debug.Log($"reset {aiName}");
+
         if (currentRoom)
         {
             currentRoom.Leave(this);
         }
+
         currentRoom = startRoom;
         currentRoom.Enter(this);
+
         Debug.Log($"{aiName} was reset to {currentRoom}");
+
         if (animatronicManager != null)
             AILevel = animatronicManager.GetAILevel(gameManager.getCurrentDay(), aiName);
 
         moveTimer = graceTimer;
     }
-
 }
