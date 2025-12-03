@@ -757,7 +757,7 @@ MonoBehaviour:
   playerHiding: {fileID: 82868718}
   gameManager: {fileID: 82868716}
   animatronicManager: {fileID: 2123959862}
-  baseMoveDelay: 2.5
+  baseMoveDelay: 2.75
   officeStayTime: 2
   attackWarningTime: 3
   baseAttackLingerTime: 2
@@ -769,7 +769,7 @@ MonoBehaviour:
   animatronicAudio: {fileID: 113467233}
   footStepVolumePercentage: 45
   footstepSound: {fileID: 8300000, guid: d3e273fad18f56241afab1c6665cb94a, type: 3}
-  attackSoundVolumePercentage: 15
+  attackSoundVolumePercentage: 20
   attackSound: {fileID: 8300000, guid: 3090f44a3df6bbe45a56311e88a98bc0, type: 3}
   warningSoundVolumePercentage: 80
   warningSound: {fileID: 8300000, guid: c54553d1a2b366e4db7084da5ced2a2a, type: 3}
@@ -1603,6 +1603,11 @@ MonoBehaviour:
 
     [Your
     name]'
+  - "Dear Human Resources,\r\n\r\nI am writing to share some concerns regarding recurring
+    disruptions in the office caused by Steve\u2019s questionable behavior. He frequently
+    initiates loud conversations and jumps on my desk.\r\n\r\nThese disruptions have
+    increasingly affected my ability to concentrate and perform my work effectively.
+    \r\n\nBest,\n\n[Your name]"
 --- !u!1 &397396618
 GameObject:
   m_ObjectHideFlags: 0
@@ -2774,7 +2779,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 998ebced2ee495e48a024a8fb6a3ce65, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.23
+  m_Volume: 0.24
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -3872,7 +3877,7 @@ MonoBehaviour:
   animatronicAudio: {fileID: 1907241413}
   footStepVolumePercentage: 40
   footstepSound: {fileID: 8300000, guid: 45e182aa55485d641b76eb806ce6ff3a, type: 3}
-  attackSoundVolumePercentage: 10
+  attackSoundVolumePercentage: 25
   attackSound: {fileID: 8300000, guid: f178219536de3b243ad8bd57e23115e8, type: 3}
   warningSoundVolumePercentage: 80
   warningSound: {fileID: 8300000, guid: c54553d1a2b366e4db7084da5ced2a2a, type: 3}
@@ -5146,7 +5151,7 @@ MonoBehaviour:
   backgroundRenderer: {fileID: 0}
   roomName: 
   connectedRooms: []
-  officeBias: 1
+  officeBias: 5
   occupant: {fileID: 0}
 --- !u!1 &1007772114
 GameObject:
@@ -6125,7 +6130,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.485
+  m_Volume: 0.465
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -10051,7 +10056,7 @@ MonoBehaviour:
   animatronicDifficultyPerDay:
   - dayDifficultyList: 0000000002000000040000000600000008000000
   - dayDifficultyList: 0100000002000000030000000400000005000000
-  - dayDifficultyList: 0300000004000000060000000600000007000000
+  - dayDifficultyList: 0300000004000000050000000600000007000000
   - dayDifficultyList: 000000000300000005000000080000000a000000
 --- !u!4 &2123959863
 Transform:
