@@ -107,16 +107,16 @@ public class GameManager : MonoBehaviour
         FindFirstObjectByType<ProductivitySystem>(FindObjectsInactive.Include)?.ResetProductivity();
 
         UpdateUI();
-        AI[] animatronics = FindObjectsByType<AI>(FindObjectsSortMode.None);
-        foreach (AI animatronic in animatronics) {
-            animatronic.Reset();
-        }
         StartCoroutine(BeginDayStartTransition(4));
     }
 
     void EndShift()
     {
         Time.timeScale = 0f;
+        AI[] animatronics = FindObjectsByType<AI>(FindObjectsSortMode.None);
+        foreach (AI animatronic in animatronics) {
+            animatronic.Reset();
+        }
         AudioController.PauseAudio?.Invoke();
         dayTransitionAudioSource.PlayOneShot(gameWinSound);
         dayEndAnimator.SetActive(true);

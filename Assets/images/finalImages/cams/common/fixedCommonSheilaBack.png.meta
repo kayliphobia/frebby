@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1012214f0a8828a48afa975a37263e63
+guid: 92c91fb8cae386c48aaa1aaf30205c54
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4903534299631462450
-    second: fixedSheilaPeek_0
+      213: -2474485272877658269
+    second: fixedCommonSheilaBack_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: fixedSheilaPeek_0
+      name: fixedCommonSheilaBack_0
       rect:
         serializedVersion: 2
-        x: 1631
-        y: 220
-        width: 148
-        height: 498
+        x: 0
+        y: 0
+        width: 988
+        height: 1080
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2382a79277adc0440800000000000000
-      internalID: 4903534299631462450
+      spriteID: 36f013431ccd8add0800000000000000
+      internalID: -2474485272877658269
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      fixedSheilaPeek_0: 4903534299631462450
+      fixedCommonSheilaBack_0: -2474485272877658269
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

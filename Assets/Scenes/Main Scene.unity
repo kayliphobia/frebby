@@ -1164,8 +1164,8 @@ MonoBehaviour:
   occupiedRoomImages:
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 21300000, guid: 634f7a3fdeddc8f42af9ef50daeaa3d5, type: 3}
-  - {fileID: 21300000, guid: 1cbcb18a3967f9c4a8b9d5e507615178, type: 3}
+  - {fileID: 21300000, guid: 781a611b2d87bc4478e3d840cd144891, type: 3}
+  - {fileID: 21300000, guid: 92c91fb8cae386c48aaa1aaf30205c54, type: 3}
   backgroundRenderer: {fileID: 0}
   roomName: 
   connectedRooms: []
